@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+    Tá feio o tabuleiro mesmo. Foco aqui é o JavaScript.
+-->
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jogo da Velha</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="css/jogo.css">
+    <link rel="shortcut icon" href="_res/favicon.jpg" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <main>
+
+        <!-- Barra superior -->
+        <header id="title">
+
+            <ul >
+            <!-- Título -->
+                <li> <p class="title"></p> </li>
+            <!-- Fim Título -->
+
+            <li> <a href="https://youtube.com" target='_blank'  class='yt-btn'>YouTube</a></li>
+            
+            <!-- Data e Hora -->
+            <li> <p class="time" id="date"></p> </li>
+            <!-- Fim Data e Hora -->
+            </ul>
+
+
+        </header>
+        <!--Fim Barra superior -->
+
+
+        <!-- gameBox -->
+        <article class="gameBox" id="gameBox">
+
+            <!-- Primeira linha de botões -->
+            
+            <section class='line1'>
+               
+                <button id='btn-1' ></button>
+                <button id='btn-2' ></button>
+                <button id='btn-3' ></button>
+            
+            </section>    
+            
+
+
+            <!-- Segunda linha de botões -->
+           
+            <section class='line2'>
+                
+                <button id='btn-4' ></button>
+                <button id='btn-5' ></button>
+                <button id='btn-6' ></button>
+            
+            </section>    
+           
+
+            <!-- Terceira linha de botões -->
+           
+            <section class='line3'>
+               
+                <button id='btn-7' ></button>
+                <button id='btn-8' ></button>
+                <button id='btn-9'></button>
+            
+            </section>    
+            
+
+        </article>
+        <!-- Fim gameBox -->
+
+        <!-- Status do jogo -->
+        <section class='statBox'>
+
+            <!-- Display resultado-->
+            <section >
+
+                <p id="win" class="win"></p>
+
+            </section>
+            <!-- Fim Display resultado -->
+
+            <section class='score'>
+
+                <label for="p1">Player 1</label>
+                <input type="text" class='sc-inp1' id='p1' disabled>
+
+                <label for="p2">Player 2</label>
+                <input type="text" class='sc-inp2' id='p2'disabled>
+
+                <p id='resetGame'>Reiniciar</p>
+
+            </section>
+
+        </section>
+        <!-- Fim Status do jogo-->
+
+
+        <footer>
+            Copyright &copy; 2019 uHs13 - Todos os direitos reservados
+        </footer>
+
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="scripts/controller/Game.js"></script>
+    <script src="scripts/index.js"></script>
+    <!-- FIM SCRIPTS -->
+</body>
+
+</html>

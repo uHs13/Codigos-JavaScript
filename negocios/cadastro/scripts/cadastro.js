@@ -1,0 +1,1 @@
+window.cadastro = new Cadastro();

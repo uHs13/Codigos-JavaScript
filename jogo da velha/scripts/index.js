@@ -1,0 +1,1 @@
+window.gameplay = new Game();//adicionamos uma nova variável global à janela do navegador e a instanciamos como um obeto da classe Game que contém os métodos e atributos responsáveis por criar e gerenciar o jogo da velha;

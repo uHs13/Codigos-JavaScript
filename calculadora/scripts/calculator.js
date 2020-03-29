@@ -1,0 +1,2 @@
+window.calculator = new CalcController();//Colocando caculator como atributo de window ele fica global, não precisamos usar window. para ter acesso;
+//Após colocar como atributo de window temos acesso pelo console;

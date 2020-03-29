@@ -1,0 +1,255 @@
+body{
+
+    margin:0;
+    padding:0;
+    font-family: 'Raleway';
+    background-color: #e7e7e7;
+
+}
+
+main{
+
+    width:100%;
+    background-color: #fff;
+    
+
+}
+
+header{
+
+    text-align: center;
+    width:100%;
+    
+    
+    
+}
+
+form{
+
+    width:80%;
+    margin:0 auto;
+    box-shadow: 2px 2px  8px #b1b1b1;
+    padding:5px 25px;
+    border-radius: 3px;
+    background-color: #fff;
+
+}
+
+input{
+
+    font-family: 'Raleway';
+
+}
+
+button{
+
+    font-family: 'Raleway';
+    width:100px;
+    margin: 25px auto;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    border-radius: 3px;
+    border:1px solid #fff; 
+    color:rgb(54, 129, 35);
+    background-color: #fff;
+
+}
+
+button:hover{
+
+    border:1px solid rgb(54, 129, 35);
+    color:#fff;
+    background-color:rgb(54, 129, 35);
+    cursor:pointer;
+    box-shadow: 3px 3px 8px 1px rgb(148, 148, 148);
+    transition: box-shadow 0.2s linear;
+
+}
+
+table{
+
+    width:100%;
+    margin:0 auto;
+    font-size: 12px;
+    
+}
+
+table thead{
+
+    background-color: #fff;
+
+}
+
+table tbody tr:nth-child(odd){
+
+    background: rgb(253, 252, 252) !important;
+
+}
+
+
+table tbody tr:nth-child(even){
+
+    background: rgb(252, 245, 245) !important;
+
+}
+
+
+table .action-container{
+
+    width:120px;
+   
+    margin:0 auto;
+    
+}
+
+table .action-container .btn-edit{
+
+    width:50px;
+    margin:0;
+    display: inline-block;
+    background-color: transparent;
+    border:1px solid transparent;
+    color:rgb(86, 209, 247);
+
+}
+
+table .action-container .btn-edit:hover{
+
+    border:1px solid rgb(86, 209, 247);
+    background-color: rgb(86, 209, 247);
+    color:#fff;
+
+}
+
+table .action-container .btn-exclude{
+
+    width:50px;
+    margin:0;
+    display: inline-block;
+    background-color: transparent;
+    border:1px solid transparent;
+    color:rgb(241, 41, 41);
+
+}
+
+table .action-container .btn-exclude:hover{
+
+    border:1px solid rgb(241, 41, 41);
+    background-color: rgb(241, 41, 41);
+    color:#fff;
+
+}
+
+footer{
+
+    position: absolute;
+    bottom:0;
+    width:100%;
+    text-align: center;
+
+}
+
+.float-left{
+
+    float:left;
+    width:50%;
+    
+    
+
+}
+
+.section-left-title{
+
+    
+    line-height: 50px;
+    margin:0;
+    margin-bottom: 30px;
+    background-color: rgb(14, 121, 55);
+    color:white;
+    box-shadow:0 3px 3px rgb(189, 189, 189);
+    
+
+}
+
+.info-span{
+
+    color:red;
+
+
+}
+
+#edit-section .section-left-title{
+
+    background-color: rgb(86, 209, 247);
+    box-shadow:0 3px 3px rgb(189, 189, 189);
+
+}
+
+#edit-section .btn-container{
+
+    width:250px;
+    margin:0 auto;
+    
+    text-align: center;
+    height: 100px;
+    
+
+}
+
+#edit-section button{
+
+    width:100px;
+    display:inline-block;
+    padding:3px 3px;
+    
+    
+ 
+
+}
+
+#edit-section .btn-save{
+
+    color: rgb(86,209,247);
+
+}
+
+#edit-section .btn-save:hover{
+
+    border:1px solid rgb(86,209,247);
+    color:#fff;
+    background-color: rgb(86,209,247);
+    
+
+}
+
+#edit-section .btn-cancel{
+
+    color:rgb(168, 168, 168);
+
+}
+
+#edit-section .btn-cancel:hover{
+
+    border:1px solid rgb(199, 199, 199);
+    color:#fff;
+    background-color: rgb(199, 199, 199);
+
+}
+
+
+.float-right{
+
+    float:right;
+    width:50%;
+
+}
+
+.section-right-title{
+
+    line-height: 50px;
+    margin:0;
+    background-color: rgb(193, 222, 250);
+    box-shadow:0 3px 3px rgb(189, 189, 189);
+
+}

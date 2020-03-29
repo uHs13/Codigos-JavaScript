@@ -1,0 +1,249 @@
+*{
+
+    margin:0;
+    background-color:rgb(252, 252, 252); 
+    font-family: 'Raleway';
+
+}
+
+
+main{
+
+    width: 100%;
+
+}
+
+header{
+
+    clear:both;
+    width: 100%;
+    background-color: #fff;
+    height: 50px;
+    position: relative;
+    box-shadow: 3px 3px 5px #bbb;
+    margin-bottom: 100px;
+    
+    
+    
+   
+}
+
+ul{
+
+    margin:0;
+    padding:0;
+
+}
+
+li{
+
+    list-style: none;/* Cada elemento recebe o list-style:none*/
+    display: inline-block;
+    padding:1% 12%;
+   
+
+}
+
+li a{
+
+    text-decoration: none;
+
+}
+
+li a:hover{
+
+    background-color: red;
+    color:white;
+    box-shadow: 3px 3px 5px 1px rgb(128, 126, 126);
+
+}
+
+
+article{
+
+    clear: both;
+    position: relative;
+    margin:0 auto;
+    
+    height: 100px;
+    width: 300px;    
+     
+}
+
+button{
+
+    width: 80px;
+    height: 80px;
+    margin-right: 0px;
+    background-color: #fff;
+    outline: none;
+    font-size:20px;
+    border: 1px solid black;
+    
+}
+
+input{
+
+    margin-left: 3px;
+    margin-right: 5px;
+    width: 100px;
+    display: inline-block;
+    border:1px solid #333;
+    border-radius: 4px;
+
+}
+
+
+
+footer{
+
+  position: absolute;
+  bottom:0;  
+  background-color: white;
+  width: 100%;
+  line-height: 50px;
+  color:black;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+    
+
+}
+
+
+
+.yt-btn{
+
+    color:red;
+    padding:1px 2px;
+    border:1px solid red;
+    border-radius:4px; 
+
+}
+
+.gameBox{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:250px;
+    height: 250px;
+    position: relative;
+    
+    
+
+}
+
+.line1{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: transparent;
+    top:0;  
+    width:100%;
+    margin-bottom: 10px;
+  
+    
+    
+
+}
+
+.line2{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float:left;
+    width:100%;
+    margin-bottom: 10px;
+
+}
+
+.line3{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom:0;
+
+
+}
+
+
+.statBox{
+
+    width:400px;
+   
+    margin:0 auto;
+   
+
+}
+
+.win{
+
+    visibility: visible;
+    margin:0 auto;
+    height:25px;
+    width:400px;
+    text-align: center;
+    
+    
+}
+
+
+
+
+.score{
+
+    margin-top:15px;
+    width: 380px;
+    margin-left: 5px;
+    text-align: center;
+ 
+    padding-right: 10px;
+    
+
+}
+
+.sc-inp1{
+
+    color:blue;
+    padding-left: 4px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.sc-inp2{
+
+    color:red;
+    padding-left: 4px;
+    font-size: 13px;
+    text-align: center;
+
+}
+
+#resetGame{
+
+    margin:10px auto;
+    font-size: 13px;
+    color:green;
+
+}
+
+#resetGame:hover{
+
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+

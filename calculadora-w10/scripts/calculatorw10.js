@@ -1,0 +1,1 @@
+window.calculator = new CalcControllerw10();//criamos a variável calculator dentro do window e a inicializamos como um objeto da nossa classe CalcControllerw10;

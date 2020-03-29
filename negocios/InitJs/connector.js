@@ -1,0 +1,1 @@
+window.fibonacci = new Fibonacci(5,5);
