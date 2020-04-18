@@ -1,0 +1,85 @@
+nav {
+
+    width: 100%;
+    margin: 25px auto;
+    white-space: nowrap;
+
+}
+
+nav ul {
+
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+nav ul li {
+
+    float: left;
+    position: relative;
+
+}
+
+/* Main menu */
+
+nav ul li a {
+
+    display: inline-block;
+    text-decoration: none;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    margin-right: 1px;
+    width: 300px;
+    text-align: center;
+    transition: background-color .1s;
+
+}
+
+/* Sub menu */
+nav ul li ul {
+
+    display:none;
+    position: absolute;
+    padding-top: 1px;
+
+}
+
+/* Sub menu itens */
+nav ul li ul li a {
+
+    width: 300px;
+    text-align: center;
+    margin-top: 1px;
+
+}
+
+nav li:hover ul {
+
+    display:block;
+
+}
+
+nav ul li a:hover {
+
+    border: 1px solid #fff;
+    background-color: #fff;
+    color: black;
+    box-shadow: 2px 2px 5px 1px #ccc;
+
+}
+
+.list-title {
+
+    margin-right: 100px;
+    font-weight: bold;
+    font-size: 20px;
+
+}
