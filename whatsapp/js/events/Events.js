@@ -12,6 +12,8 @@ class Events {
 
         this.attachEvents = new AttachEvents(this.elList);
 
+        this.messageEvents = new MessageEvents(this.elList);
+
     }
     //.constructor
 
