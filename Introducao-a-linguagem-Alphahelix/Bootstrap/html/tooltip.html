@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tooltip</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="../node_modules/fontawesome/css/all.css">
+
+</head>
+
+<body>
+
+    <main class="container-fluid">
+
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Tooltip</a>
+        </nav>
+
+        <section class="table-responsive p-3">
+
+            <div class="text-center p-2">
+
+                <h2 class="text-info">Info <i class="fas fa-info-circle fa-sm text-primary" data-toggle="tooltip" data-placement="right" title="European Clubs"></i></h2>
+
+            </div>
+
+            <table class="table table-striped text-center p-1">
+                <thead>
+                    <tr>
+                        <th scope="col">League</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Foundation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Serie A</td>
+                        <td>Unione Sportiva Sassuolo Calcio</td>
+                        <td>1922</td>
+                    </tr>
+                    <tr>
+                        <td>Bundesliga</td>
+                        <td>Fußball-Club Bayern München</td>
+                        <td>1900</td>
+                    </tr>
+                    <tr>
+                        <td>La Liga</td>
+                        <td>Athletic Club</td>
+                        <td>1898</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+    </main>
+
+    <!-- Jquery -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        $(() => {
+
+            $("[data-toggle='tooltip']").tooltip();
+
+        });
+
+    </script>
+
+</body>
+
+</html>

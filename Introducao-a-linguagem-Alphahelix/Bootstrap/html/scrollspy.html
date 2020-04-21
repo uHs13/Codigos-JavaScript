@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollSpy</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body class="position-relative">
+
+    <main class="container-fluid">
+
+        <nav class="navbar navbar-light bg-light">
+            <a href="" class="navbar-brand">Scrollspy</a>
+        </nav>
+
+        <section class="row">
+
+            <section class="col-lg-4">
+                <div id="list-example" class="list-group">
+                    <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+                </div>
+            </section>
+
+            <section class="col-lg-8" id="scroll" style="position: realtive; height: 200px;overflow-y: scroll;">
+                <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+                    <h4 id="list-item-1">Item 1</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ligula orci, lacinia eu eleifend id, ornare eget diam. Cras sit amet eleifend nulla. Morbi aliquet nisi sit amet purus convallis viverra. Donec lacus dui, mattis ac lectus eu, auctor pharetra libero. Proin consequat eget lorem sed dignissim. Nullam id suscipit justo, ut sodales purus. Ut rhoncus auctor rhoncus. Morbi sit amet laoreet nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec laoreet et justo in pretium. Vestibulum dictum tellus eu ornare pellentesque. Etiam pharetra scelerisque sem, vitae pulvinar diam convallis sit amet. Vestibulum tempor orci eu enim congue, ut malesuada turpis elementum. Nullam et hendrerit diam.</p>
+                    <h4 id="list-item-2">Item 2</h4>
+                    <p>Nullam mollis orci at sem accumsan, sit amet pharetra justo sodales. Nam pharetra velit et enim ornare dictum. Integer sodales enim nisl, vel bibendum nibh sollicitudin ut. Sed posuere risus sit amet nunc feugiat volutpat. Phasellus finibus consectetur dolor et scelerisque. Duis et turpis ornare, malesuada mauris interdum, suscipit elit. Donec quis orci tellus. In quis arcu arcu. Mauris gravida tristique ante, sit amet bibendum tellus blandit eget. Praesent in ex at ante auctor interdum. In non leo non nisi sagittis bibendum ut placerat risus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                    <h4 id="list-item-3">Item 3</h4>
+                    <p>Integer venenatis volutpat dui, nec aliquam augue semper facilisis. Aenean diam enim, scelerisque in quam in, pellentesque vestibulum lacus. Nullam convallis odio in pretium ornare. Suspendisse egestas porta est. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer ultricies metus velit, nec venenatis ante sagittis at. Donec cursus pharetra vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer cursus egestas nibh, ut consequat velit suscipit quis. In consectetur ut quam vitae vestibulum. In hac habitasse platea dictumst. Vestibulum sit amet libero convallis, tincidunt felis sit amet, pulvinar libero. Sed quis semper felis, ac dapibus metus. Pellentesque id velit sapien. Morbi venenatis ligula sit amet metus finibus euismod.</p>
+                    <h4 id="list-item-4">Item 4</h4>
+                    <p>Curabitur lobortis lectus in eros tristique lacinia vitae vitae ante. Proin at ornare turpis. Nunc et metus fringilla dui egestas semper. Quisque aliquam sapien tincidunt auctor gravida. Phasellus lobortis tortor massa, sit amet porttitor libero eleifend aliquam. Maecenas consectetur, dolor vel pellentesque tempus, nibh ante iaculis quam, ultrices tristique tortor enim nec est. Donec molestie quam erat, blandit molestie nunc volutpat sed. Aliquam mattis, lorem nec bibendum iaculis, lorem odio malesuada nisi, quis facilisis arcu mauris cursus neque.</p>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- Jquery -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        $("#scroll").scrollspy();
+
+    </script>
+
+</body>
+
+</html>

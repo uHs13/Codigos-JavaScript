@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popover</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/popover.css">
+
+</head>
+
+<body>
+
+    <main class="container-fluid">
+
+        <nav class="navbar navbar-light bg-light">
+
+            <a class="navbar-brand">Popover</a>
+
+        </nav>
+
+        <article class="col-lg-12 d-flex align-itens-center justify-content-center  mt-5">
+
+            <section>
+
+                <button type="button" class="btn btn-outline-primary" data-container="body" data-toggle="popover"
+                    data-placement="top" data-trigger="focus"
+                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                    data-title="Title">
+                    Top and title
+                </button>
+
+                <button type="button" class="btn btn-outline-danger" data-container="body" data-toggle="popover"
+                    data-placement="right" data-trigger="focus"
+                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    Right
+                </button>
+
+                <button type="button" class="btn btn-outline-success" data-container="body" data-toggle="popover"
+                    data-placement="bottom" data-trigger="focus" data-content="Vivamus
+              sagittis lacus vel augue laoreet rutrum faucibus.">
+                    Bottom
+                </button>
+
+                <button type="button" class="btn btn-outline-info" data-container="body" data-toggle="popover"
+                    data-placement="left" data-trigger="focus" data-content="Vivamus sagittis .">
+                    Left
+                </button>
+
+            </section>
+
+        </article>
+
+    </main>
+
+    <!-- Jquery -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        // initialize all popovers on page
+        $(() => {
+
+            $("[data-toggle='popover']").popover();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
