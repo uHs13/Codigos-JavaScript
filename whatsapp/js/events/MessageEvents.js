@@ -92,7 +92,69 @@ class MessageEvents {
 
                 });
 
-                this.elList.inputText.appendChild(img);
+                /* 
+                    Insere após todos os caracteres digitados. Essa maneira não funciona corretamente para todas as vezes que o usuário
+                    tentar inserir um emoji.
+                */
+                // this.elList.inputText.appendChild(img);
+
+                /**
+                 *  Retorna a posição atual do cursor do teclado na tela ou a posição da parte do texto que foi selecionada pelo usuário.
+                 */
+                let cursor = window.getSelection();
+
+                /**
+                 * É preciso saber se o cursor do teclado está focado em algum local. Caso não esteja ou esteja em outro lugar, jogamos seu
+                 * foco para a div onde a mensagem é digitada
+                 */
+                if (!cursor.focusNode || !cursor.focusNode.id === 'input-text') {
+
+                    // jogamos o foco na div da mensagem. Não é um input, é uma div com content editable
+                    this.elList.inputText.focus();
+
+                    cursor = window.getSelection();
+
+                }
+
+                /**
+                 *  Após posicionarmos o cursor do teclado dentro da div onde a mensagem é digitada precisamos saber qual a posição do cursor
+                 * dentro dessa div e qual seu comportamento. Por exemplo, se o cursor está no inicio da mensagem, no meio, no final ou está
+                 * selecionando algum trecho da mensagem. Em qualquer um desses casos o comportamento será adicionar um emoji na posição atual do
+                 * cursor.
+                 */
+                // criando um variável que vai armazenar o range, a posição ou conjunto de posições no caso de seleção de texto, do cursor do teclado.
+                let range = document.createRange();
+
+                /**
+                 * Atribuindo a posição inicial de onde o cursor está posicionado. Se estiver em um unico lugar será a posição atual, se for seleção
+                 * de texto retorna onde foi iniciada.
+                 */
+                range = cursor.getRangeAt(0);
+
+                /**
+                 * Remove o que está dentro da seleção do cursor para que o conteudo possa ser substituido pelo emoji.
+                 */
+                range.deleteContents();
+
+                /**
+                 * Cria um fragmento que será adicionado no local onde o cursor do teclado está.
+                 */
+                let fragment = document.createDocumentFragment();
+
+                /**
+                 * Adiciona o emoji como conteudo do fragmento.
+                 */
+                fragment.appendChild(img);
+
+                /**
+                 * Insere o fragmento do range de seleção do cursor do teclado.
+                 */
+                range.insertNode(fragment);
+
+                /**
+                 * Define o novo inicio do cursor após o emoji adicionado.
+                 */
+                range.setStartAfter(img);
 
                 this.elList.inputText.dispatchEvent(new Event("keyup"));
 
