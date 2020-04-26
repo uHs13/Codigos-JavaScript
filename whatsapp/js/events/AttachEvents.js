@@ -6,6 +6,8 @@ class AttachEvents {
 
         this.screen = new Screen(this.elList);
 
+        this.cameraEvents;
+
         this.bindEvents();
 
     }
@@ -81,6 +83,8 @@ class AttachEvents {
             });
 
             this.elList.panelCamera.addClass('open');
+
+            this.cameraEvents = new CameraEvents(this.elList.videoCamera);
 
         });
         // .btnAttachCamera

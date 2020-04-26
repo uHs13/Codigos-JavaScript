@@ -77,8 +77,10 @@ class MessageEvents {
 
             emoji.on("click", () => {
 
-                //console.log(emoji.dataset.unicode);
-                // attribute data-x means dataset.x
+                /*
+                * console.log(emoji.dataset.unicode);
+                * Attribute data-x means dataset.x.
+                */
 
                 let img = this.elList.imgEmojiDefault.cloneNode();
 
@@ -117,7 +119,7 @@ class MessageEvents {
                 }
 
                 /**
-                 *  Após posicionarmos o cursor do teclado dentro da div onde a mensagem é digitada precisamos saber qual a posição do cursor
+                 * Após posicionarmos o cursor do teclado dentro da div onde a mensagem é digitada precisamos saber qual a posição do cursor
                  * dentro dessa div e qual seu comportamento. Por exemplo, se o cursor está no inicio da mensagem, no meio, no final ou está
                  * selecionando algum trecho da mensagem. Em qualquer um desses casos o comportamento será adicionar um emoji na posição atual do
                  * cursor.
@@ -156,6 +158,10 @@ class MessageEvents {
                  */
                 range.setStartAfter(img);
 
+                /**
+                 * Dispara o evento keyup do input text que tem como comportamento remover o texto que funciona como
+                 * placeholder antes de ser inserido a mensagem.
+                 */
                 this.elList.inputText.dispatchEvent(new Event("keyup"));
 
             });
