@@ -1,4 +1,8 @@
-class WhatsApp {
+import {Prototype} from '../prototype/Prototype';
+import {Events} from '../events/Events';
+import {Format} from '../format/Format';
+
+export class WhatsApp {
 
     constructor() {
 

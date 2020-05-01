@@ -1,4 +1,6 @@
-class ContactsEvents {
+import {Screen} from "../screen/Screen";
+
+export class ContactsEvents {
 
     constructor(elList) {
 

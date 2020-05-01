@@ -1,4 +1,6 @@
-class ProfileEvents {
+import {Screen} from '../screen/Screen';
+
+export class ProfileEvents {
 
     constructor(elList) {
 

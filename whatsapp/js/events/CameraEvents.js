@@ -1,4 +1,4 @@
-class CameraEvents {
+export class CameraEvents {
 
     constructor(videoEl) {
 
@@ -20,6 +20,11 @@ class CameraEvents {
             this.videoEl.srcObject = stream;
 
             /**
+             * Alimentando um atributo para ter acesso ao stream fora do seu escopo
+             */
+            this.stream = stream;
+
+            /**
              * Mostra na tela o que está sendo capturado pela câmera.
              */
             this.videoEl.play();
@@ -32,6 +37,17 @@ class CameraEvents {
 
     }
     // .constructor
+
+    stopCamera() {
+
+        this.stream.getTracks().forEach(track => {
+
+            track.stop();
+
+        });
+
+    }
+    // .stopCamera
 
 }
 // .CameraEvents

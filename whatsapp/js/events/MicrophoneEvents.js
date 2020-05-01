@@ -1,4 +1,8 @@
-class MicrophoneEvents {
+import {Screen} from '../screen/Screen';
+import {Time} from '../time/Time';
+import {Format} from '../format/Format';
+
+export class MicrophoneEvents {
 
     constructor (elList) {
 

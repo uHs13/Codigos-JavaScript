@@ -1,4 +1,4 @@
-class Screen {
+export class Screen {
 
     constructor(elList) {
 

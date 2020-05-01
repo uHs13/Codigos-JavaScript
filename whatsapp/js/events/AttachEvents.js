@@ -1,4 +1,7 @@
-class AttachEvents {
+import {Screen} from '../screen/Screen';
+import {CameraEvents} from '../events/CameraEvents';
+
+export class AttachEvents {
 
     constructor(elList) {
 
@@ -90,6 +93,8 @@ class AttachEvents {
         // .btnAttachCamera
 
         this.elList.btnClosePanelCamera.on('click', () => {
+
+            this.cameraEvents.stopCamera();
 
             this.screen.closeAllMainPanel();
 

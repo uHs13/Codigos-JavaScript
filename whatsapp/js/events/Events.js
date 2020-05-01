@@ -1,4 +1,10 @@
-class Events {
+import {MicrophoneEvents} from '../events/MicrophoneEvents';
+import {ProfileEvents} from '../events/ProfileEvents';
+import {ContactsEvents} from '../events/ContactsEvents';
+import {AttachEvents} from '../events/AttachEvents';
+import {MessageEvents} from '../events/MessageEvents';
+
+export class Events {
 
     constructor(el) {
 

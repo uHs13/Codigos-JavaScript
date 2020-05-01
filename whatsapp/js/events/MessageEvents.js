@@ -1,4 +1,4 @@
-class MessageEvents {
+export class MessageEvents {
 
     constructor(elList) {
 

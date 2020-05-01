@@ -1,4 +1,4 @@
-class Prototype {
+export class Prototype {
 
     static elementsPrototype() {
 
