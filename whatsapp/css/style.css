@@ -14771,7 +14771,7 @@ html[dir=rtl] ._2k1om .xVBLL,html[dir=rtl] .r4crx ._2-_Pl{
     position:relative;
     top:20px;
     width:calc(100% - 40px);
-    height:calc(100% - 60px)
+    height:calc(100% - 60px);
 }
 .r4crx ._2GgBs{
     height:40px
@@ -16135,4 +16135,14 @@ html[dir=rtl] ._2ICcy:after{
 }
 #main {
     display:none;
+}
+#picture-camera {
+    display: flex;
+    height: 100%;
+    width: auto;
+}
+._2oKVP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

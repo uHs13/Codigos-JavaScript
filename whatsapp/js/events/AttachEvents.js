@@ -1,5 +1,6 @@
-import {Screen} from '../screen/Screen';
-import {CameraEvents} from '../events/CameraEvents';
+import { Screen } from '../screen/Screen';
+import { CameraEvents } from '../events/CameraEvents';
+import { Document } from '../document/Document';
 
 export class AttachEvents {
 
@@ -85,6 +86,16 @@ export class AttachEvents {
                 height: 'calc(100% - 120px)'
             });
 
+            this.elList.pictureCamera.hide();
+
+            this.elList.videoCamera.show();
+
+            this.elList.containerTakePicture.show();
+
+            this.elList.containerSendPicture.hide();
+
+            this.elList.btnReshootPanelCamera.hide();
+
             this.elList.panelCamera.addClass('open');
 
             this.cameraEvents = new CameraEvents(this.elList.videoCamera);
@@ -105,10 +116,45 @@ export class AttachEvents {
 
         this.elList.btnTakePicture.on('click', () => {
 
-            console.log('click-zum');
+            let base64 = this.cameraEvents.takePicture();
+
+            this.elList.pictureCamera.src = base64;
+
+            this.elList.pictureCamera.show();
+
+            this.elList.videoCamera.hide();
+
+            this.elList.btnReshootPanelCamera.show();
+
+            this.elList.containerTakePicture.hide();
+
+            this.elList.containerSendPicture.show();
 
         });
         // .btnTakePicture
+
+        this.elList.btnReshootPanelCamera.on('click', () => {
+
+            this.elList.pictureCamera.hide();
+
+            this.elList.videoCamera.show();
+
+            this.elList.containerTakePicture.show();
+
+            this.elList.containerSendPicture.hide();
+
+            this.elList.btnReshootPanelCamera.hide();
+
+        });
+        // .btnReshootPanelCamera
+
+        this.elList.btnSendPicture.on('click', () => {
+
+            console.log(this.elList.pictureCamera.src);
+
+            this.cameraEvents.stopCamera();
+
+        });
 
     }
     // .btnAttachCameraEvents
@@ -125,8 +171,92 @@ export class AttachEvents {
                 height: 'calc(100% - 110px)'
             });
 
+            this.elList.inputDocument.click();
+
         });
         // .btnAttachDocument
+
+        this.elList.inputDocument.on('change', () => {
+
+            if (this.elList.inputDocument.files) {
+
+                let file = this.elList.inputDocument.files[0];
+
+                this.document = new Document(file);
+
+                this.document.previewData().then(data => {
+
+                    let type = data.src.split(',')[0].split(':')[1].split(';')[0];
+
+                    switch (type) {
+
+                        case 'image/jpg':
+                        case 'image/png':
+                        case 'image/gif':
+                        case 'image/webp':
+                        case 'image/jpeg':
+
+                            this.elList.imgPanelDocumentPreview.src = data.src;
+
+                            this.elList.infoPanelDocumentPreview.innerHTML = data.title;
+
+                            this.elList.filePanelDocumentPreview.hide();
+
+                            this.elList.imagePanelDocumentPreview.show();
+
+                            break;
+
+                    }
+                    // .switch
+
+                }).catch(error => {
+
+                    switch (file.type) {
+
+                        case 'application/vnd.ms-powerpoint':
+                        case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
+                        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+
+                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-ppt';
+
+                        break;
+
+                        case 'application/vnd.ms-excel':
+                        case 'application/vnd.ms-excel.sheet.macroEnabled.12':
+                        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+
+                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-xls';
+
+                        break;
+
+                        case 'application/msword':
+                        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-doc';
+
+                        break;
+
+                        default:
+
+                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-generic';
+
+                            break;
+
+                    }
+
+                    this.elList.filenamePanelDocumentPreview.innerHTML = file.name;
+
+                    this.elList.filePanelDocumentPreview.show();
+
+                    this.elList.imagePanelDocumentPreview.hide();
+
+
+                });
+
+            }
+
+        });
+        // .inpuDocument
 
         this.elList.btnClosePanelDocumentPreview.on("click", () => {
 

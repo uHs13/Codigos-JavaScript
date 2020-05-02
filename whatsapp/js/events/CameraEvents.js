@@ -2,8 +2,6 @@ export class CameraEvents {
 
     constructor(videoEl) {
 
-        console.log(videoEl);
-
         this.videoEl = videoEl;
 
         navigator.mediaDevices.getUserMedia({
@@ -48,6 +46,22 @@ export class CameraEvents {
 
     }
     // .stopCamera
+
+    takePicture(mimeType = 'image/png') {
+
+        let canvas = document.createElement('canvas');
+
+        canvas.setAttribute('height', this.videoEl.videoHeight);
+        canvas.setAttribute('width', this.videoEl.videoWidth);
+
+        let context = canvas.getContext('2d');
+
+        context.drawImage(this.videoEl, 0, 0, canvas.width, canvas.height);
+
+        return canvas.toDataURL(mimeType);
+
+    }
+    // .takePicture
 
 }
 // .CameraEvents
