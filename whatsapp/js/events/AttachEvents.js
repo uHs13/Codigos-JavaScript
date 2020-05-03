@@ -178,13 +178,19 @@ export class AttachEvents {
 
         this.elList.inputDocument.on('change', () => {
 
-            if (this.elList.inputDocument.files) {
+            if (this.elList.inputDocument.files.length) {
+
+                this.elList.panelDocumentPreview.css({
+                    height: '1%'
+                });
 
                 let file = this.elList.inputDocument.files[0];
 
                 this.document = new Document(file);
 
                 this.document.previewData().then(data => {
+
+                    console.log(data);
 
                     let type = data.src.split(',')[0].split(':')[1].split(';')[0];
 
@@ -204,12 +210,22 @@ export class AttachEvents {
 
                             this.elList.imagePanelDocumentPreview.show();
 
+                            this.elList.panelDocumentPreview.css({
+                                height: 'calc(100% - 110px)'
+                            });
+
                             break;
 
                     }
                     // .switch
 
                 }).catch(error => {
+
+                    console.log(error);
+
+                    this.elList.panelDocumentPreview.css({
+                        height: 'calc(100% - 110px)'
+                    });
 
                     switch (file.type) {
 
@@ -219,7 +235,7 @@ export class AttachEvents {
 
                             this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-ppt';
 
-                        break;
+                            break;
 
                         case 'application/vnd.ms-excel':
                         case 'application/vnd.ms-excel.sheet.macroEnabled.12':
@@ -227,14 +243,14 @@ export class AttachEvents {
 
                             this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-xls';
 
-                        break;
+                            break;
 
                         case 'application/msword':
                         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
 
                             this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-doc';
 
-                        break;
+                            break;
 
                         default:
 
@@ -243,6 +259,7 @@ export class AttachEvents {
                             break;
 
                     }
+                    // .switch
 
                     this.elList.filenamePanelDocumentPreview.innerHTML = file.name;
 
@@ -250,8 +267,8 @@ export class AttachEvents {
 
                     this.elList.imagePanelDocumentPreview.hide();
 
-
                 });
+                // .catch
 
             }
 
@@ -295,7 +312,6 @@ export class AttachEvents {
 
     }
     // .btnAttachContactEvents
-
 
 }
 // .AttachEvents
