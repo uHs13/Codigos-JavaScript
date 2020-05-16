@@ -190,8 +190,6 @@ export class AttachEvents {
 
                 this.document.previewData().then(data => {
 
-                    console.log(data);
-
                     let type = data.src.split(',')[0].split(':')[1].split(';')[0];
 
                     switch (type) {

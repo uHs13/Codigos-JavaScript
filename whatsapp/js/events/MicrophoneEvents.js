@@ -32,7 +32,17 @@ export class MicrophoneEvents {
 
             this.elList.btnSendMicrophone.hide();
 
-            this.changeMicrophoneTimer();
+            try {
+
+                this.recordMicrophoneAudio();
+
+                this.changeMicrophoneTimer();
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
 
         });
         // .btnSendMicrophone
@@ -44,6 +54,8 @@ export class MicrophoneEvents {
             this.elList.btnSendMicrophone.show();
 
             this.clearMicrophoneTimerInterval();
+
+            this.stopRecordMicrophoneAudio();
 
         });
         // .btnCancelMicrophone
@@ -93,6 +105,45 @@ export class MicrophoneEvents {
 
     }
     // .clarMicrophoneTimerInterval
+
+    recordMicrophoneAudio() {
+
+        navigator.mediaDevices.getUserMedia({
+
+            audio: true
+
+        }).then(stream => {
+
+            /**
+             * Alimentando um atributo para ter acesso ao stream fora do seu escopo
+             */
+            this.stream = stream;
+
+            let audio = new Audio();
+
+            audio.srcObject = stream;
+
+            audio.play();
+
+        }).catch(error => {
+
+            console.error(error);
+
+        });
+
+    }
+    // .recordMicrophoneAudio
+
+    stopRecordMicrophoneAudio() {
+
+        this.stream.getTracks().forEach(track => {
+
+            track.stop();
+
+        });
+
+    }
+    // .stopRecordMicrophoneAudio
 
 }
 // .MicrophoneEvents
