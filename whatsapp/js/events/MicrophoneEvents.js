@@ -1,14 +1,23 @@
-import {Screen} from '../screen/Screen';
-import {Time} from '../time/Time';
-import {Format} from '../format/Format';
+import { Screen } from '../screen/Screen';
+import { Time } from '../time/Time';
+import { Format } from '../format/Format';
+import { Event } from './Event';
 
-export class MicrophoneEvents {
+export class MicrophoneEvents extends Event {
 
-    constructor (elList) {
+    constructor(elList) {
+
+        super();
 
         this.elList = elList;
 
         this._micTimer;
+
+        this._mediaRecorder;
+
+        this._recordedChunks = [];
+
+        this._mimeType = 'audio/webm';
 
         this.screen = new Screen(this.elList);
 
@@ -24,25 +33,58 @@ export class MicrophoneEvents {
     }
     // .bindEvents
 
+    initMicrophoneAudio() {
+
+        return new Promise((res, rej) => {
+
+            navigator.mediaDevices.getUserMedia({
+
+                audio: true
+
+            }).then(stream => {
+
+                /**
+                 * Alimentando um atributo para ter acesso ao stream fora do seu escopo
+                 */
+
+                this.stream = stream;
+
+                res(this.stream);
+
+            }).catch(error => {
+
+                rej(error);
+
+            });
+
+        });
+
+    }
+    // .initMicrophoneAudio
+
     voiceEvents() {
 
         this.elList.btnSendMicrophone.on("click", () => {
 
-            this.screen.changeDisplayMode("recordMicrophone");
+            /**
+             * Método com promessa que retorna o object stream se o usuario
+             * permite a gravação do microfone.
+             */
+            this.initMicrophoneAudio().then((res) => {
 
-            this.elList.btnSendMicrophone.hide();
+                if (res) {
 
-            try {
+                    this.elList.btnSendMicrophone.hide();
 
-                this.recordMicrophoneAudio();
+                    this.screen.changeDisplayMode("recordMicrophone");
 
-                this.changeMicrophoneTimer();
+                    this.changeMicrophoneTimer();
 
-            } catch (error) {
+                    this.startRecorder();
 
-                console.error(error);
+                }
 
-            }
+            });
 
         });
         // .btnSendMicrophone
@@ -55,7 +97,7 @@ export class MicrophoneEvents {
 
             this.clearMicrophoneTimerInterval();
 
-            this.stopRecordMicrophoneAudio();
+            this.stopRecorder();
 
         });
         // .btnCancelMicrophone
@@ -63,6 +105,8 @@ export class MicrophoneEvents {
         this.elList.btnFinishMicrophone.on("click", () => {
 
             this.screen.changeDisplayMode("recordMicrophone");
+
+            this.stopRecorder();
 
             this.clearMicrophoneTimerInterval();
 
@@ -106,35 +150,7 @@ export class MicrophoneEvents {
     }
     // .clarMicrophoneTimerInterval
 
-    recordMicrophoneAudio() {
-
-        navigator.mediaDevices.getUserMedia({
-
-            audio: true
-
-        }).then(stream => {
-
-            /**
-             * Alimentando um atributo para ter acesso ao stream fora do seu escopo
-             */
-            this.stream = stream;
-
-            let audio = new Audio();
-
-            audio.srcObject = stream;
-
-            audio.play();
-
-        }).catch(error => {
-
-            console.error(error);
-
-        });
-
-    }
-    // .recordMicrophoneAudio
-
-    stopRecordMicrophoneAudio() {
+    stopMicrophoneAudio() {
 
         this.stream.getTracks().forEach(track => {
 
@@ -143,7 +159,78 @@ export class MicrophoneEvents {
         });
 
     }
-    // .stopRecordMicrophoneAudio
+    // .stopMicrophoneAudio
+
+    startRecorder() {
+
+        this._mediaRecorder = new MediaRecorder(this.stream, {
+            mimeType: this._mimeType 
+        });
+
+        /**
+         * Reiniciando os valores gravados para
+         * gravar apenas os chunks do audio atual.
+         */
+        this._recordedChunks = [];
+
+        this._mediaRecorder.addEventListener('dataavailable', stream => {
+
+            if (stream.data.size > 0) {
+
+                this._recordedChunks.push(stream.data);
+
+            }
+
+        });
+
+        this._mediaRecorder.addEventListener('stop', () => {
+
+            /**
+             * Blob - Binary Large Object
+             */
+
+            let blob = new Blob(this._recordedChunks, {
+                type: this._mimeType
+            });
+
+            let fileName = `userRecord${Date.now()}`;
+
+            let file = new File([blob], fileName, {
+
+                type: this._mimeType,
+                lastModified: Date.now()
+
+            });
+
+            console.log(file);
+
+            let reader = new FileReader();
+            
+            reader.onload = e => {
+
+                let audio = new Audio(reader.result);
+
+                audio.play();
+
+            };
+
+            reader.readAsDataURL(file);
+
+        });
+
+        this._mediaRecorder.start();
+
+    }
+    // .startRecorder
+
+    stopRecorder() {
+
+        this._mediaRecorder.stop();
+
+        this.stopMicrophoneAudio();
+
+    }
+    // .stopRecorder
 
 }
 // .MicrophoneEvents
