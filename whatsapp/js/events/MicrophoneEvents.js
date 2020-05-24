@@ -78,8 +78,6 @@ export class MicrophoneEvents extends Event {
 
                     this.screen.changeDisplayMode("recordMicrophone");
 
-                    this.changeMicrophoneTimer();
-
                     this.startRecorder();
 
                 }
@@ -95,8 +93,6 @@ export class MicrophoneEvents extends Event {
 
             this.elList.btnSendMicrophone.show();
 
-            this.clearMicrophoneTimerInterval();
-
             this.stopRecorder();
 
         });
@@ -108,8 +104,6 @@ export class MicrophoneEvents extends Event {
 
             this.stopRecorder();
 
-            this.clearMicrophoneTimerInterval();
-
             this.elList.btnSendMicrophone.show();
 
         });
@@ -117,29 +111,6 @@ export class MicrophoneEvents extends Event {
 
     }
     // .voiceEvents
-
-    changeMicrophoneTimer(timer = null) {
-
-        let time = new Time();
-
-        let start = time.getDate();
-
-        if (timer == null) {
-
-            this._micTimer = setInterval(() => {
-
-                this.elList.recordMicrophoneTimer.innerHTML = Format.formatMilliseconds(time.calcElapsedTime(start));
-
-            }, 100);
-
-        } else {
-
-            this.elList.recordMicrophoneTimer.innerHTML = timer;
-
-        }
-
-    }
-    // .changeMicrophoneTimer
 
     clearMicrophoneTimerInterval() {
 
@@ -169,7 +140,7 @@ export class MicrophoneEvents extends Event {
 
         /**
          * Reiniciando os valores gravados para
-         * gravar apenas os chunks do audio atual.
+         * armazenar apenas os chunks do audio atual.
          */
         this._recordedChunks = [];
 
@@ -220,6 +191,8 @@ export class MicrophoneEvents extends Event {
 
         this._mediaRecorder.start();
 
+        this.changeMicrophoneTimer();
+
     }
     // .startRecorder
 
@@ -229,8 +202,33 @@ export class MicrophoneEvents extends Event {
 
         this.stopMicrophoneAudio();
 
+        this.clearMicrophoneTimerInterval();
+
     }
     // .stopRecorder
+
+    changeMicrophoneTimer(timer = null) {
+
+        let time = new Time();
+
+        let start = time.getDate();
+
+        if (timer == null) {
+
+            this._micTimer = setInterval(() => {
+
+                this.elList.recordMicrophoneTimer.innerHTML = Format.formatMilliseconds(time.calcElapsedTime(start));
+
+            }, 100);
+
+        } else {
+
+            this.elList.recordMicrophoneTimer.innerHTML = timer;
+
+        }
+
+    }
+    // .changeMicrophoneTimer
 
 }
 // .MicrophoneEvents
