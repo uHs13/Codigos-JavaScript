@@ -1,6 +1,6 @@
 const firebase = require('firebase');
-const analitics = require('firebase/firebase-analytics');
-const firestore = require('firebase/firebase-firestore');
+// Required for side-effects
+require("firebase/firestore");
 
 export class Firebase {
 
@@ -24,11 +24,15 @@ export class Firebase {
 
     init() {
 
-        if (!this._initialized) {
+        if (!window._initializedFirebase) {
 
             firebase.initializeApp(this._config);
 
-            this._initialized = true;
+            firebase.firestore().settings({
+
+            });
+
+            window._initializedFirebase = true;
 
         }
 
@@ -37,7 +41,7 @@ export class Firebase {
 
     static db() {
 
-        return firebase.database();
+        return firebase.firestore();
 
     }
     // .db

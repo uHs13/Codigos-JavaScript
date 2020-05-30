@@ -2,6 +2,7 @@ import {Prototype} from '../prototype/Prototype';
 import {Events} from '../events/Events';
 import {Format} from '../format/Format';
 import { Firebase } from '../firebase/Firebase';
+import { User } from './../model/User';
 
 export class WhatsApp {
 
@@ -11,17 +12,27 @@ export class WhatsApp {
 
         this.firebase.initAuth().then(res => {
 
-            console.log(res);
+            this.user = new User();
 
-            Prototype.elementsPrototype();
+            let ref = User.findByEmail(res.user.email);
 
-            this.loadElements();
+            ref.set({
+                name: res.user.displayName,
+                email: res.user.email,
+                photo: res.user.photoURL
+            }).then(() => {
 
-            this.el.appContent.css({
-                display : 'flex'
+                Prototype.elementsPrototype();
+
+                this.loadElements();
+    
+                this.el.appContent.css({
+                    display : 'flex'
+                });
+    
+                this.events = new Events(this.el);
+
             });
-
-            this.events = new Events(this.el);
 
         }).catch(error => {
 
