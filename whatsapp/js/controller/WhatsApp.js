@@ -8,31 +8,40 @@ export class WhatsApp {
 
     constructor() {
 
+        Prototype.elementsPrototype();
+
         this.firebase = new Firebase();
 
         this.firebase.initAuth().then(res => {
 
-            this.user = new User();
+            this.loadElements();
 
-            let ref = User.findByEmail(res.user.email);
+            this.user = new User(res.user.email);
 
-            ref.set({
-                name: res.user.displayName,
-                email: res.user.email,
-                photo: res.user.photoURL
-            }).then(() => {
+            this.user.on('datachange', data => {
 
-                Prototype.elementsPrototype();
+                document.querySelector('title').innerHTML = `${data.name} - Whatsapp Clone`;
 
-                this.loadElements();
-    
-                this.el.appContent.css({
-                    display : 'flex'
-                });
-    
-                this.events = new Events(this.el);
+                if (data.photo) {
+
+                    let photo = this.el.imgPanelEditProfile;
+                    photo.src = data.photo;
+                    photo.show();
+                    this.el.imgDefaultPanelEditProfile.hide();
+
+                    let photo2 = his.el.myPhoto.querySelector('img');
+                    photo2.src = data.photo;
+                    photo2.show();
+
+                }
 
             });
+
+            this.el.appContent.css({
+                display : 'flex'
+            });
+
+            this.events = new Events(this.el);
 
         }).catch(error => {
 

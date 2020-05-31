@@ -16,5 +16,12 @@ export class UserDAO {
     }
     // .getUser
 
+    static save(email, data) {
+
+        UserDAO.findByEmail(email).set(data);
+
+    }
+    // .save
+
 }
 // .UserDAO

@@ -29,7 +29,7 @@ export class Firebase {
             firebase.initializeApp(this._config);
 
             firebase.firestore().settings({
-
+                ignoreUndefinedProperties: true
             });
 
             window._initializedFirebase = true;
