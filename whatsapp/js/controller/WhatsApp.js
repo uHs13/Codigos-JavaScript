@@ -1,6 +1,6 @@
-import {Prototype} from '../prototype/Prototype';
-import {Events} from '../events/Events';
-import {Format} from '../format/Format';
+import { Prototype } from '../prototype/Prototype';
+import { Events } from '../events/Events';
+import { Format } from '../format/Format';
 import { Firebase } from '../firebase/Firebase';
 import { User } from './../model/User';
 
@@ -22,6 +22,8 @@ export class WhatsApp {
 
                 document.querySelector('title').innerHTML = `${data.name} - Whatsapp Clone`;
 
+                this.el.inputNamePanelEditProfile.innerHTML = data.name;
+
                 if (data.photo) {
 
                     let photo = this.el.imgPanelEditProfile;
@@ -29,7 +31,7 @@ export class WhatsApp {
                     photo.show();
                     this.el.imgDefaultPanelEditProfile.hide();
 
-                    let photo2 = his.el.myPhoto.querySelector('img');
+                    let photo2 = this.el.myPhoto.querySelector('img');
                     photo2.src = data.photo;
                     photo2.show();
 
@@ -37,11 +39,23 @@ export class WhatsApp {
 
             });
 
-            this.el.appContent.css({
-                display : 'flex'
-            });
+            this.user.name = res.user.displayName;
+            this.user.email = res.user.email;
+            this.user.photo = res.user.photoURL;
 
-            this.events = new Events(this.el);
+            this.user.save().then(() => {
+
+                this.el.appContent.css({
+                    display : 'flex'
+                });
+
+                this.events = new Events(this.el);    
+
+            }).catch(err=> {
+
+                console.error(err);
+
+            });
 
         }).catch(error => {
 

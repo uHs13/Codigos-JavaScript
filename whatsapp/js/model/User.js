@@ -44,11 +44,7 @@ export class User extends Model {
 
                 this.fromJSON(doc.data());
 
-            }).catch(error => {
-
-                console.error(error);
-
-                rej(error);
+                res(true);
 
             });
 

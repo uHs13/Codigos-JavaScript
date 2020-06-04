@@ -1,20 +1,20 @@
 {
   "name": "whatsapp",
   "version": "1.0.0",
-  "description": "whatsapp clone developed to learn about js",
-  "main": "index.js",
+  "description": "[![Hcode Treinamentos](https://www.hcode.com.br/res/img/hcode-200x100.png)](https://www.hcode.com.br)",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "firebase": "^4.13.1",
+    "pdfjs-dist": "^2.0.489",
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server"
   },
-  "author": "uHs13",
-  "license": "ISC",
-  "dependencies": {
-    "firebase": "^7.14.6",
-    "pdfjs-dist": "^2.0.489",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
-  }
+  "author": "",
+  "license": "ISC"
 }

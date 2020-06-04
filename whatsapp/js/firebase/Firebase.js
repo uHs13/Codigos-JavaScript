@@ -1,4 +1,4 @@
-const firebase = require('firebase');
+const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
@@ -29,7 +29,7 @@ export class Firebase {
             firebase.initializeApp(this._config);
 
             firebase.firestore().settings({
-                ignoreUndefinedProperties: true
+                timestampsInSnapshots: true
             });
 
             window._initializedFirebase = true;

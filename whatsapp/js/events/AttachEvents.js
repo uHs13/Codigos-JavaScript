@@ -275,7 +275,7 @@ export class AttachEvents {
 
         this.elList.btnClosePanelDocumentPreview.on("click", () => {
 
-            this.closeAllMainPanel();
+            this.screen.closeAllMainPanel();
 
             this.elList.panelMessagesContainer.show();
 
