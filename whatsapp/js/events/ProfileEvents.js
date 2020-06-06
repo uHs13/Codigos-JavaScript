@@ -2,9 +2,11 @@ import {Screen} from '../screen/Screen';
 
 export class ProfileEvents {
 
-    constructor(elList) {
+    constructor(elList, firebaseUserInstance) {
 
         this.elList = elList;
+
+        this.user = firebaseUserInstance;
 
         this.screen = new Screen(this.elList);
 
@@ -68,7 +70,21 @@ export class ProfileEvents {
 
         this.elList.btnSavePanelEditProfile.on("click", () => {
 
-            console.log(this.elList.inputNamePanelEditProfile.innerHTML);
+            this.elList.btnSavePanelEditProfile.style.disabled = true;
+
+            this.user.name = this.elList.inputNamePanelEditProfile.innerHTML;
+
+            this.user.save().then(() => {
+
+                console.log(this.user.toJSON());
+
+            }).catch(error => {
+
+                console.error(error);
+
+            });
+
+            //this.user.save();
 
         });
         //.btnSavePanelEditProfile

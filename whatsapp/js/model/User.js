@@ -7,7 +7,23 @@ export class User extends Model {
 
         super();
 
-        if (id) this.getById(id);
+        if (id) {
+
+            this.getById(id.email).then((doc) => {
+
+                if (!doc) {
+
+                    this.name = id.displayName;
+                    this.email = id.email;
+                    this.photo = id.photoURL;
+
+                    this.save();
+
+                }
+
+            });
+
+        }
 
     }
     // .constructor
@@ -44,7 +60,7 @@ export class User extends Model {
 
                 this.fromJSON(doc.data());
 
-                res(true);
+                res(doc.data());
 
             });
 

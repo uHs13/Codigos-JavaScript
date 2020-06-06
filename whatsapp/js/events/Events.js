@@ -6,13 +6,13 @@ import {MessageEvents} from '../events/MessageEvents';
 
 export class Events {
 
-    constructor(el) {
+    constructor(el, FirebaseUserInstance) {
 
         this.elList = el;
 
         this.microphoneEvents = new MicrophoneEvents(this.elList);
 
-        this.profileEvents = new ProfileEvents(this.elList);
+        this.profileEvents = new ProfileEvents(this.elList, FirebaseUserInstance);
 
         this.contactsEvents = new ContactsEvents(this.elList);
 

@@ -16,7 +16,7 @@ export class WhatsApp {
 
             this.loadElements();
 
-            this.user = new User(res.user.email);
+            this.user = new User(res.user);
 
             this.user.on('datachange', data => {
 
@@ -37,23 +37,11 @@ export class WhatsApp {
 
                 }
 
-            });
-
-            this.user.name = res.user.displayName;
-            this.user.email = res.user.email;
-            this.user.photo = res.user.photoURL;
-
-            this.user.save().then(() => {
-
                 this.el.appContent.css({
                     display : 'flex'
                 });
 
-                this.events = new Events(this.el);    
-
-            }).catch(err=> {
-
-                console.error(err);
+                this.events = new Events(this.el, this.user);   
 
             });
 
