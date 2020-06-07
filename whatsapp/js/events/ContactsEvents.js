@@ -2,13 +2,15 @@ import {Screen} from "../screen/Screen";
 
 export class ContactsEvents {
 
-    constructor(elList) {
+    constructor(elList, firebaseUserInstance) {
 
         this.elList = elList;
 
         this.screen = new Screen(this.elList);
 
-        this.bindEvents()
+        this.user = firebaseUserInstance;
+
+        this.bindEvents();
 
     }
     // .constructor
@@ -35,6 +37,8 @@ export class ContactsEvents {
 
             }, 300);
 
+            
+
         });
         //.btnNewContact
 
@@ -45,6 +49,8 @@ export class ContactsEvents {
 
             this.elList.paneSide.show();
 
+            
+
         });
         //.btnClosePanelAddContact
 
@@ -53,7 +59,13 @@ export class ContactsEvents {
 
             e.preventDefault();
 
-            console.log(this.elList.formPanelAddContact.getJsonData());
+            let formData = new FormData(this.elList.formPanelAddContact);
+
+            this.user.addContact(formData.get('email')).then(res => {
+
+                this.elList.btnClosePanelAddContact.click();
+
+            });
 
         });
         // .formPanelAddContact

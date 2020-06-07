@@ -3,19 +3,19 @@ import { Model } from './Model';
 
 export class User extends Model {
 
-    constructor(id) {
+    constructor(userInfo) {
 
         super();
 
-        if (id) {
+        if (userInfo) {
 
-            this.getById(id.email).then((doc) => {
+            this.getById(userInfo.email).then((doc) => {
 
                 if (!doc) {
 
-                    this.name = id.displayName;
-                    this.email = id.email;
-                    this.photo = id.photoURL;
+                    this.name = userInfo.displayName;
+                    this.email = userInfo.email;
+                    this.photo = userInfo.photoURL;
 
                     this.save();
 
@@ -76,12 +76,61 @@ export class User extends Model {
     }
     // .save
 
+    saveContact(contactData) {
+
+        return UserDAO.saveContact(this.email, contactData);
+
+    }
+    // .saveContact
+
     static findByEmail(email) {
 
         return UserDAO.findByEmail(email);
 
     }
     // .getRef
+
+    addContact(email) {
+
+        return new Promise((res, rej) => {
+
+            this.checkExists(email).then(doc => {
+
+                if (doc) {
+    
+                    let contact = new User();
+    
+                    contact.fromJSON(doc.data());
+    
+                    res(this.saveContact(contact.toJSON()));
+    
+                } else {
+    
+                    console.log('user not found');
+    
+                }
+    
+            });
+
+        });
+
+    }
+    // .addContact
+
+    checkExists(email) {
+
+        return new Promise((res, rej) => {
+
+            User.findByEmail(email).onSnapshot(doc => {
+
+               (doc) ? res(doc) : res(false);
+
+            });
+
+        });
+
+    }
+    // .checkExists
 
 }
 // .User
