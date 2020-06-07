@@ -132,5 +132,22 @@ export class User extends Model {
     }
     // .checkExists
 
+    getContacts() {
+
+        return new Promise((res, rej) => {
+
+           UserDAO.getContacts(this.email).then(resp => {
+
+            this.trigger('contactsChange', resp.docs);
+
+            res(resp.contacts);
+
+           });
+
+        });
+
+    }
+    // .getContacts
+
 }
 // .User

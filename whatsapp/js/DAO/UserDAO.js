@@ -9,6 +9,16 @@ export class UserDAO {
     }
     // .getRef
 
+    static getContactsRef(userEmail) {
+
+        return Firebase.db()
+        .collection('/users')
+        .doc(userEmail)
+        .collection('contacts');
+
+    }
+    // .getContactsRef
+
     static findByEmail(email) {
 
         return UserDAO.getRef().doc(email);
@@ -30,13 +40,42 @@ export class UserDAO {
             atob converte uma string base64 em plaintext
         */
 
-        return UserDAO.findByEmail(userEmail)
-        .collection('contacts')
+        return UserDAO.getContactsRef(userEmail)
         .doc(btoa(contactData.email))
         .set(contactData);
 
     }
     // .saveContact
+
+    static getContacts(userEmail) {
+
+        return new Promise((res, rej) => {
+
+            UserDAO.getContactsRef(userEmail).onSnapshot(docs => {
+
+                let contacts = [];
+    
+                docs.forEach(doc => {
+    
+                    let data = doc.data();
+    
+                    data.id = doc.id;
+    
+                    contacts.push(data);
+    
+                });
+    
+                res({
+                    contacts,
+                    docs
+                });
+    
+            });
+
+        });
+
+    }
+    // .getContacts
 
 }
 // .UserDAO
