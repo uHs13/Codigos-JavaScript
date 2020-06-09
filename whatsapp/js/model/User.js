@@ -52,6 +52,14 @@ export class User extends Model {
         this._data.photo = photo;
     }
 
+    get chatId() {
+        return this._data.chatId;
+    }
+
+    set chatId(chatId) {
+        this._data.chatId = chatId;
+    }
+
     getById(id) {
 
         return new Promise((res, rej) => {
@@ -90,7 +98,7 @@ export class User extends Model {
     }
     // .getRef
 
-    addContact(email) {
+    addContact(email, chatId) {
 
         return new Promise((res, rej) => {
 
@@ -101,15 +109,19 @@ export class User extends Model {
                     let contact = new User();
     
                     contact.fromJSON(doc.data());
-    
+
+                    contact._data['chatId'] = chatId;
+
+                    this.trigger('contactChange');
+
                     res(this.saveContact(contact.toJSON()));
-    
+
                 } else {
     
                     console.log('user not found');
     
                 }
-    
+
             });
 
         });

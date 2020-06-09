@@ -1,4 +1,6 @@
 import {Screen} from "../screen/Screen";
+import { Chat } from "../model/Chat";
+import { User } from "../model/User";
 
 export class ContactsEvents {
 
@@ -23,7 +25,7 @@ export class ContactsEvents {
 
     }
     // .bindEvents
-    
+
     initContacts() {
 
         this.user.on('contactsChange', docs => {
@@ -98,6 +100,8 @@ export class ContactsEvents {
 
                 div.on('click', () => {
 
+                    console.log(contact.chatId);
+
                     this.elList.activeName.innerHTML = contact.name;
                     this.elList.activeStatus.innerHTML = contact.status;
 
@@ -161,15 +165,35 @@ export class ContactsEvents {
         //.btnClosePanelAddContact
 
         this.elList.formPanelAddContact.on("submit", (e) => {
-            // botão submit nova conversa
 
+            // botão submit nova conversa
             e.preventDefault();
 
             let formData = new FormData(this.elList.formPanelAddContact);
 
-            this.user.addContact(formData.get('email')).then(res => {
+            Chat.create(this.user.email, formData.get('email')).then(chat => {
 
-                this.elList.btnClosePanelAddContact.click();
+                this.user.addContact(formData.get('email'), chat.id).then(res => {
+
+                    let contact = new User({
+                        email: formData.get('email')
+                    });
+
+                    contact.addContact(this.user.email, chat.id).then(res => {
+
+                        this.elList.btnClosePanelAddContact.click();
+
+                    });
+
+                }).then(error => {
+
+                    console.error(error);
+
+                });
+
+            }).catch(error => {
+
+                console.error(error);
 
             });
 
