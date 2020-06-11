@@ -1,6 +1,7 @@
 import { Screen } from "../screen/Screen";
 import { Chat } from "../model/Chat";
 import { User } from "../model/User";
+import { Message } from "../model/Message";
 
 export class ContactsEvents {
 
@@ -206,6 +207,14 @@ export class ContactsEvents {
 
     setActiveContact(contact) {
 
+        if (this.activeContact) {
+
+            Message.getRef(this.activeContact.chatId)
+            .orderBy('timeStamp')
+            .onSnapshot(() => {});
+
+        }
+
         this.activeContact = contact;
 
         this.elList.activeName.innerHTML = contact.name;
@@ -223,6 +232,35 @@ export class ContactsEvents {
 
         this.elList.main.css({
             display: 'flex'
+        });
+
+        Message.getRef(this.activeContact.chatId)
+        .orderBy('timeStamp')
+        .onSnapshot(docs => {
+
+            this.elList.panelMessagesContainer.innerHTML = '';
+
+            docs.forEach(doc => {
+
+                let data = doc.data();
+                data.id = doc.id;
+
+                if (!this.elList.panelMessagesContainer.querySelector(`#_${data.id}`)) {
+
+                    let message = new Message();
+
+                    message.fromJSON(data);
+
+                    let me = (data.from === this.user.email);
+
+                    let view = message.getViewElement(me);
+
+                    this.elList.panelMessagesContainer.appendChild(view);
+
+                }
+
+            });
+
         });
 
     }

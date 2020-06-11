@@ -24,5 +24,24 @@ export class Format {
     }
     // .formatMilliseconds
 
+    static dateToTime(date, locale) {
+
+        return date.toLocaleTimeString(locale, {
+            hours: '2-digit',
+            minutes: '2-digit'
+        });
+
+    }
+    // .dateToTime
+
+    static timeStampToTime(timestamp) {
+
+        return (timestamp && typeof timestamp.toDate === 'function')
+        ? Format.dateToTime(timestamp.toDate(), 'pt-BR')
+        : '';
+
+    }
+    // .timeStampToTime
+
 }
 //.Format
