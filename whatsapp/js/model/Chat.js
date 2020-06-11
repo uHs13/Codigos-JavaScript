@@ -95,8 +95,6 @@ export class Chat extends Model {
 
                 Chat.find(userEmail, contactEmail).then(chats => {
 
-                    console.log(chats);
-
                     if (chats.empty) {
 
                         Chat.createChat(userEmail, contactEmail).then(chat => {

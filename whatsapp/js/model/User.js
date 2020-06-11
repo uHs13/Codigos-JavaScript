@@ -112,8 +112,6 @@ export class User extends Model {
 
                     contact._data['chatId'] = chatId;
 
-                    this.trigger('contactChange');
-
                     res(this.saveContact(contact.toJSON()));
 
                 } else {

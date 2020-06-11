@@ -1,8 +1,13 @@
+import { ContactsEvents } from "./ContactsEvents";
+import { Message } from "../model/Message";
+
 export class MessageEvents {
 
-    constructor(elList) {
+    constructor(elList, firebaseUserInstance) {
 
         this.elList = elList;
+
+        this.user = firebaseUserInstance;
 
         this.bindEvents();
 
@@ -51,10 +56,15 @@ export class MessageEvents {
         /* Btn send text message */
         this.elList.btnSend.on("click", () => {
 
-            let message = this.elList.inputText.innerHTML;
+            Message.send(
+                ContactsEvents.sendActiveContact().chatId,
+                this.user.email,
+                'text',
+                this.elList.inputText.innerHTML
+            );
 
-            console.log(message);
-            return;
+            this.elList.inputText.innerHTML = '';
+            this.elList.panelEmojis.removeClass('open');
 
         });
         // btnSend.click

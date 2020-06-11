@@ -1,4 +1,4 @@
-import {Screen} from "../screen/Screen";
+import { Screen } from "../screen/Screen";
 import { Chat } from "../model/Chat";
 import { User } from "../model/User";
 
@@ -27,6 +27,8 @@ export class ContactsEvents {
     // .bindEvents
 
     initContacts() {
+
+        this.user.getContacts();
 
         this.user.on('contactsChange', docs => {
 
@@ -100,24 +102,7 @@ export class ContactsEvents {
 
                 div.on('click', () => {
 
-                    console.log(contact.chatId);
-
-                    this.elList.activeName.innerHTML = contact.name;
-                    this.elList.activeStatus.innerHTML = contact.status;
-
-                    if (contact.photo) {
-
-                        let img = this.elList.activePhoto;
-                        img.src = contact.photo;
-                        img.show();
-    
-                    }
-
-                    this.elList.home.hide();
-
-                    this.elList.main.css({
-                        display: 'flex'
-                    });
+                    this.setActiveContact(contact);
 
                 });
 
@@ -126,8 +111,6 @@ export class ContactsEvents {
             });
 
         });
-
-        this.user.getContacts();
 
     }
     // .initContacts
@@ -147,8 +130,6 @@ export class ContactsEvents {
 
             }, 300);
 
-            
-
         });
         //.btnNewContact
 
@@ -159,7 +140,7 @@ export class ContactsEvents {
 
             this.elList.paneSide.show();
 
-            
+
 
         });
         //.btnClosePanelAddContact
@@ -181,11 +162,13 @@ export class ContactsEvents {
 
                     contact.addContact(this.user.email, chat.id).then(res => {
 
+                        this.user.getContacts();
+
                         this.elList.btnClosePanelAddContact.click();
 
                     });
 
-                }).then(error => {
+                }).catch(error => {
 
                     console.error(error);
 
@@ -220,6 +203,37 @@ export class ContactsEvents {
 
     }
     // .contactsEvents
+
+    setActiveContact(contact) {
+
+        this.activeContact = contact;
+
+        this.elList.activeName.innerHTML = contact.name;
+        this.elList.activeStatus.innerHTML = contact.status;
+
+        if (contact.photo) {
+
+            let img = this.elList.activePhoto;
+            img.src = contact.photo;
+            img.show();
+
+        }
+
+        this.elList.home.hide();
+
+        this.elList.main.css({
+            display: 'flex'
+        });
+
+    }
+    // .setActiveContact
+
+    static sendActiveContact() {
+
+        return window.app.events.contactsEvents.activeContact;
+
+    }
+    // .sendActiveContact
 
 }
 // .ContactsEvents
