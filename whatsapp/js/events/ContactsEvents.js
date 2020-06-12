@@ -234,11 +234,44 @@ export class ContactsEvents {
             display: 'flex'
         });
 
+        this.elList.panelMessagesContainer.innerHTML = '';
+
         Message.getRef(this.activeContact.chatId)
         .orderBy('timeStamp')
         .onSnapshot(docs => {
 
-            this.elList.panelMessagesContainer.innerHTML = '';
+            /**
+             * O painel de mensagens tem uma altura fixa. A partir do momento que a altura
+             * do conteúdo ultrapassa esse valor fixo a propriedade overflow-y do css cria
+             * uma barra de rolagem vertical para podermos acompanhar o conteúdo sem alte-
+             * rar a altura fixa do painel.
+             * 
+             * scrollHeight: altura total do conteúdo do painel
+             * offsetHeight: altura fixa do painel
+             * scrollTop: distância do inicio do conteúdo ao ponto atual do scroll
+             * 
+             * valor máximo de rolagem: scrollHeight - offsetHeight
+             * valor máximo que é possível rolar o painel de mensagens
+             * 
+             * Se o ponto atual do scroll for a igual a scrollTop, barra de rolagem encosta-
+             * da no final do conteúdo, a rolagem tem que ocorrer automaticamente. Se for um
+             * valor menor a barra de rolagem deve permanecer no local onde está.
+             * 
+             */
+
+            let scrollTop = this.elList.panelMessagesContainer.scrollTop;
+            let scrollTopMax = (
+                this.elList.panelMessagesContainer.scrollHeight -
+                this.elList.panelMessagesContainer.offsetHeight
+            );
+            
+            /**
+             * Se for maior significa que a barra de rolagem está no final.
+             * A cada nova mensagem a barra de rolagem tem que ser reajusta-
+             * da para o final. Se a comparação retornar false quer dizer
+             * que a barra de rolagem está acima do final.
+             */
+            let autoScroll = (scrollTop >= scrollTopMax);    
 
             docs.forEach(doc => {
 
@@ -260,6 +293,19 @@ export class ContactsEvents {
                 }
 
             });
+
+            if (autoScroll) {
+
+                this.elList.panelMessagesContainer.scrollTop = (
+                this.elList.panelMessagesContainer.scrollHeight -
+                this.elList.panelMessagesContainer.offsetHeight
+                );
+
+            } else {
+
+                this.elList.panelMessagesContainer.scrollTop = scrollTop;
+
+            }
 
         });
 
