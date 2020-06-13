@@ -141,8 +141,6 @@ export class ContactsEvents {
 
             this.elList.paneSide.show();
 
-
-
         });
         //.btnClosePanelAddContact
 
@@ -201,6 +199,22 @@ export class ContactsEvents {
 
         });
         // .contactsMessagesList
+
+        this.elList.inputSearchContacts.on('keyup', () => {
+
+            if (this.elList.inputSearchContacts.value.length > 0) {
+
+                this.elList.inputSearchContactsPlaceholder.hide();
+
+            } else {
+
+                this.elList.inputSearchContactsPlaceholder.show();
+
+            }
+
+            this.user.getContacts(this.elList.inputSearchContacts.value);
+
+        });
 
     }
     // .contactsEvents

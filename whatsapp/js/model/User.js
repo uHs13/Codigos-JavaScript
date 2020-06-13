@@ -142,11 +142,11 @@ export class User extends Model {
     }
     // .checkExists
 
-    getContacts() {
+    getContacts(search = '') {
 
         return new Promise((res, rej) => {
 
-           UserDAO.getContacts(this.email).then(resp => {
+           UserDAO.getContacts(this.email, search).then(resp => {
 
             this.trigger('contactsChange', resp.docs);
 

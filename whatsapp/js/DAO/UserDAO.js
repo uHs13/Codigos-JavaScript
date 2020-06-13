@@ -47,11 +47,11 @@ export class UserDAO {
     }
     // .saveContact
 
-    static getContacts(userEmail) {
+    static getContacts(userEmail, search) {
 
         return new Promise((res, rej) => {
 
-            UserDAO.getContactsRef(userEmail).onSnapshot(docs => {
+            UserDAO.getContactsRef(userEmail).where('name', '>=', search).onSnapshot(docs => {
 
                 let contacts = [];
     
