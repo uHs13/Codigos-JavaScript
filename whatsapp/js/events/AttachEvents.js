@@ -1,12 +1,16 @@
 import { Screen } from '../screen/Screen';
 import { CameraEvents } from '../events/CameraEvents';
 import { Document } from '../document/Document';
+import { Message } from '../model/Message';
+import { ContactsEvents } from './ContactsEvents';
 
 export class AttachEvents {
 
-    constructor(elList) {
+    constructor(elList, firebaseUserInstance) {
 
         this.elList = elList;
+
+        this.user = firebaseUserInstance;
 
         this.screen = new Screen(this.elList);
 
@@ -63,10 +67,14 @@ export class AttachEvents {
 
         this.elList.inputPhoto.on("change", () => {
 
-            //a lista de arquivos selectionados no input file é uma coleção que não pode ser iterada pelo forEach. Para percorrê-la temos que converter em array
+            // a lista de arquivos selectionados no input file é uma coleção que não pode ser iterada pelo forEach. Para percorrê-la temos que converter em array
             Array.from(this.elList.inputPhoto.files).forEach(file => {
 
-                console.log(file);
+                Message.sendImage(
+                    ContactsEvents.sendActiveContact().chatId,
+                    this.user.email,
+                    file
+                );
 
             });
 

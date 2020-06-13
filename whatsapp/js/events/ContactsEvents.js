@@ -311,6 +311,8 @@ export class ContactsEvents {
 
                     let view = message.getViewElement(me);
 
+                    console.log('colocando mensagem');
+
                     this.elList.panelMessagesContainer.appendChild(view);
 
                 } else if (me) {

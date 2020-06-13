@@ -16,7 +16,7 @@ export class Events {
 
         this.contactsEvents = new ContactsEvents(this.elList, firebaseUserInstance);
 
-        this.attachEvents = new AttachEvents(this.elList);
+        this.attachEvents = new AttachEvents(this.elList, firebaseUserInstance);
 
         this.messageEvents = new MessageEvents(this.elList, firebaseUserInstance);
 
