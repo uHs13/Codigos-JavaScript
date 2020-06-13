@@ -292,17 +292,33 @@ export class ContactsEvents {
                 let data = doc.data();
                 data.id = doc.id;
 
+                let message = new Message();
+                message.fromJSON(data);
+
+                let me = (data.from === this.user.email);
+
                 if (!this.elList.panelMessagesContainer.querySelector(`#_${data.id}`)) {
 
-                    let message = new Message();
+                    if (!me) {
 
-                    message.fromJSON(data);
+                        doc.ref.set({
+                            status: 'read'
+                        }, {
+                            merge: true
+                        });
 
-                    let me = (data.from === this.user.email);
+                    }
 
                     let view = message.getViewElement(me);
 
                     this.elList.panelMessagesContainer.appendChild(view);
+
+                } else if (me) {
+
+                    let msgEl = this.elList.panelMessagesContainer.querySelector(`#_${data.id}`)
+
+                    msgEl.querySelector('.message-status').innerHTML =
+                    message.getStatusViewElement().outerHTML;
 
                 }
 
