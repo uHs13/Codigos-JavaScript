@@ -158,9 +158,27 @@ export class AttachEvents {
 
         this.elList.btnSendPicture.on('click', () => {
 
-            console.log(this.elList.pictureCamera.src);
+            this.elList.btnSendPicture.disabled = true;
 
-            this.cameraEvents.stopCamera();
+            let image = CameraEvents.convertBase64inImage(this.elList.pictureCamera.src);
+
+            image.then(file => {
+
+                Message.sendImage(
+                    ContactsEvents.sendActiveContact().chatId,
+                    this.user.email,
+                    file
+                );
+
+                this.cameraEvents.stopCamera();
+
+                this.screen.closeAllMainPanel();
+
+                this.elList.panelMessagesContainer.show();
+
+                this.elList.btnSendPicture.disabled = false;
+
+            });
 
         });
 
