@@ -227,16 +227,18 @@ export class AttachEvents {
                         case 'image/webp':
                         case 'image/jpeg':
 
+                        console.log(data);
+
                             this.elList.imgPanelDocumentPreview.src = data.src;
 
                             this.elList.infoPanelDocumentPreview.innerHTML = data.title;
 
-                            this.elList.filePanelDocumentPreview.hide();
-
                             this.elList.imagePanelDocumentPreview.show();
 
+                            this.elList.filePanelDocumentPreview.hide();
+
                             this.elList.panelDocumentPreview.css({
-                                height: 'calc(100% - 110px)'
+                                height: 'calc(100%)'
                             });
 
                             break;
@@ -247,14 +249,14 @@ export class AttachEvents {
                 }).catch(error => {
 
                     this.elList.panelDocumentPreview.css({
-                        height: 'calc(100% - 110px)'
+                        height: 'calc(100%)'
                     });
 
                     this.elList.iconPanelDocumentPreview.className = Document.switchDocIcon(file.type);
 
                     this.elList.filenamePanelDocumentPreview.innerHTML = file.name;
 
-                    this.elList.infoPanelDocumentPreview.innerHTML = data.title;
+                    this.elList.infoPanelDocumentPreview.innerHTML = data.info;
 
                     this.elList.filePanelDocumentPreview.show();
 

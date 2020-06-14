@@ -14777,8 +14777,10 @@ html[dir=rtl] ._2k1om .xVBLL,html[dir=rtl] .r4crx ._2-_Pl{
     height:40px
 }
 html[dir] .r4crx ._2GgBs{
-    padding-top:40px;
-    text-align:center
+    padding-top:0px;
+    position: relative;
+    left: 20%;
+    text-align:left;
 }
 .r4crx ._3m_5X{
     z-index:2;
