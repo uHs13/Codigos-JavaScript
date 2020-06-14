@@ -1,6 +1,7 @@
 import { Model } from './Model';
 import { Firebase } from '../firebase/Firebase';
 import { Format } from '../format/Format';
+import { Base64 } from '../Base64/Base64';
 
 export class Message extends Model {
 
@@ -386,7 +387,7 @@ export class Message extends Model {
     }
     // .send
 
-    static uploadImage(from, file) {
+    static uploadToStorage(from, file) {
 
         return Firebase.hd()
         .ref(from)
@@ -394,13 +395,13 @@ export class Message extends Model {
         .put(file);
 
     }
-    // .uploadImage
+    // .uploadToStorage
 
-    static sendImage(chatId, from, file) {
+    static upload(from, file) {
 
         return new Promise((res, rej) => {
 
-            let uploadTask = Message.uploadImage(from, file);
+            let uploadTask = Message.uploadToStorage(from, file);
 
             uploadTask.on('state_changed', e => {
     
@@ -409,14 +410,31 @@ export class Message extends Model {
             }, error => {
     
                 console.error(error);
+
+                rej(error);
     
             }, () => {
+
+                res(uploadTask.snapshot);
+
+            });
+
+        });
+
+    }
+    // .sendImage
+
+    static sendImage(chatId, from, file) {
+
+        return new Promise((res, rej) => {
+
+            Message.upload(from, file).then(snapshot => {
 
                 Message.send(
                     chatId,
                     from,
                     'image',
-                    uploadTask.snapshot.downloadURL
+                    snapshot.downloadURL
                 ).then(() => {
 
                     res(true);
@@ -492,6 +510,17 @@ export class Message extends Model {
 
     }
     // .getStatusViewElement
+
+    static sendDocument(chatId, from, file, preview) {
+
+        Base64.convertBase64inImage(preview, false).then(file => {
+
+            console.log(file);
+
+        });
+
+    }
+    // .sendDocument
 
 }
 // .Message

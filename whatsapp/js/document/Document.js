@@ -131,5 +131,44 @@ export class Document {
     }
     // .previewData
 
+    static switchDocIcon(mimeType) {
+
+        switch (mimeType) {
+
+            case 'application/vnd.ms-powerpoint':
+            case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+
+                return 'jcxhw icon-doc-ppt';
+
+                break;
+
+            case 'application/vnd.ms-excel':
+            case 'application/vnd.ms-excel.sheet.macroEnabled.12':
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+
+                return 'jcxhw icon-doc-xls';
+
+                break;
+
+            case 'application/msword':
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+                return 'jcxhw icon-doc-doc';
+
+                break;
+
+            default:
+
+                return 'jcxhw icon-doc-generic';
+
+                break;
+
+        }
+        // .switch
+
+    }
+    // .switchDocIcon
+
 }
 // .Document

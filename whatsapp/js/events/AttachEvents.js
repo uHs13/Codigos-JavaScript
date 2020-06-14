@@ -3,6 +3,7 @@ import { CameraEvents } from '../events/CameraEvents';
 import { Document } from '../document/Document';
 import { Message } from '../model/Message';
 import { ContactsEvents } from './ContactsEvents';
+import { Base64 } from '../Base64/Base64';
 
 export class AttachEvents {
 
@@ -160,7 +161,7 @@ export class AttachEvents {
 
             this.elList.btnSendPicture.disabled = true;
 
-            let image = CameraEvents.convertBase64inImage(this.elList.pictureCamera.src);
+            let image = Base64.convertBase64inImage(this.elList.pictureCamera.src);
 
             image.then(file => {
 
@@ -245,45 +246,11 @@ export class AttachEvents {
 
                 }).catch(error => {
 
-                    console.log(error);
-
                     this.elList.panelDocumentPreview.css({
                         height: 'calc(100% - 110px)'
                     });
 
-                    switch (file.type) {
-
-                        case 'application/vnd.ms-powerpoint':
-                        case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
-                        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-
-                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-ppt';
-
-                            break;
-
-                        case 'application/vnd.ms-excel':
-                        case 'application/vnd.ms-excel.sheet.macroEnabled.12':
-                        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-
-                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-xls';
-
-                            break;
-
-                        case 'application/msword':
-                        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-
-                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-doc';
-
-                            break;
-
-                        default:
-
-                            this.elList.iconPanelDocumentPreview.className = 'jcxhw icon-doc-generic';
-
-                            break;
-
-                    }
-                    // .switch
+                    this.elList.iconPanelDocumentPreview.className = Document.switchDocIcon(file.type);
 
                     this.elList.filenamePanelDocumentPreview.innerHTML = file.name;
 
@@ -310,7 +277,16 @@ export class AttachEvents {
 
         this.elList.btnSendDocument.on("click", () => {
 
-            console.log("Sending documents");
+            let file = this.elList.inputDocument.files[0];
+
+            let base64 = this.elList.imgPanelDocumentPreview.src;
+
+            Message.sendDocument(
+                ContactsEvents.sendActiveContact().chatId,
+                this.user.email,
+                file,
+                base64
+            );
 
         });
         // .btnSendDocument
