@@ -1,7 +1,6 @@
 import { Model } from './Model';
 import { Firebase } from '../firebase/Firebase';
 import { Format } from '../format/Format';
-import { Base64 } from '../Base64/Base64';
 
 export class Message extends Model {
 
@@ -17,7 +16,7 @@ export class Message extends Model {
         return this._data.content;
 
     }
-    
+
     set content(value) {
 
         this._data.content = value;
@@ -72,6 +71,90 @@ export class Message extends Model {
 
     }
 
+    get preview() {
+
+        return this._data.preview;
+
+    }
+
+    set preview(value) {
+
+        this._data.preview = value;
+
+    }
+
+    get filename() {
+
+        return this._data.filename;
+
+    }
+
+    set filename(value) {
+
+        this._data.filename = value;
+
+    }
+
+    get filetype() {
+
+        return this._data.filetype;
+
+    }
+
+    set filetype(value) {
+
+        this._data.filetype = value;
+
+    }
+
+    get info() {
+
+        return this._data.info;
+
+    }
+
+    set info(value) {
+
+        this._data.info = value;
+
+    }
+
+    get filesize() {
+
+        return this._data.filesize;
+
+    }
+
+    set filesize(value) {
+
+        this._data.filesize = value;
+
+    }
+
+    get from() {
+
+        return this._data.from;
+
+    }
+
+    set from(value) {
+
+        this._data.from = value;
+
+    }
+
+    get fileinfo() {
+
+        return this._data.fileinfo;
+
+    }
+
+    set fileinfo(value) {
+
+        this._data.fileinfo = value;
+
+    }
+
     getViewElement(me = true) {
 
         let div = document.createElement('div');
@@ -83,7 +166,7 @@ export class Message extends Model {
             case 'contact':
 
                 div.innerHTML = `
-                    <div class="_3_7SH kNKwo tail">
+                    <div class="_3_7SH kNKwo tail" id="_${this.id}">
                         <span class="tail-container"></span>
                         <span class="tail-container highlight"></span>
                         <div class="_1YNgi copyable-text">
@@ -180,16 +263,16 @@ export class Message extends Model {
             case 'document':
 
                 div.innerHTML = `
-                <div class="_3_7SH _1ZPgd">
+                <div class="_3_7SH _1ZPgd" id="_${this.id}">
                     <div class="_1fnMt _2CORf">
                         <a class="_1vKRe" href="#">
-                            <div class="_2jTyA" style="background-image: url()"></div>
+                            <div class="_2jTyA" style="background-image: url(${this.preview})"></div>
                             <div class="_12xX7">
                                 <div class="_3eW69">
                                     <div class="JdzFp message-file-icon icon-doc-pdf"></div>
                                 </div>
                                 <div class="nxILt">
-                                    <span dir="auto" class="message-filename">Arquivo.pdf</span>
+                                    <span dir="auto" class="message-filename">${this.filename}</span>
                                 </div>
                                 <div class="_17viz">
                                     <span data-icon="audio-download" class="message-file-download">
@@ -207,9 +290,9 @@ export class Message extends Model {
                             </div>
                         </a>
                         <div class="_3cMIj">
-                            <span class="PyPig message-file-info">32 páginas</span>
-                            <span class="PyPig message-file-type">PDF</span>
-                            <span class="PyPig message-file-size">4 MB</span>
+                            <span class="PyPig message-file-info">${this.fileinfo}</span>
+                            <span class="PyPig message-file-type">${this.filetype}</span>
+                            <span class="PyPig message-file-size">${this.filesize}</span>
                         </div>
                         <div class="_3Lj_s">
                             <div class="_1DZAH" role="button">
@@ -221,12 +304,18 @@ export class Message extends Model {
                 </div>
                 `;
 
+                div.on('click', () => {
+
+                    window.open(this.content);
+
+                });
+
                 break;
 
             case 'audio':
 
                 div.innerHTML = `
-                    <div class="_3_7SH _17oKL">
+                    <div class="_3_7SH _17oKL" id="_${this.id}">
                         <div class="_2N_Df LKbsn">
                             <div class="_2jfIu">
                                 <div class="_2cfqh">
@@ -349,10 +438,10 @@ export class Message extends Model {
     static getRef(chatId) {
 
         return Firebase
-        .db()
-        .collection('chats')
-        .doc(chatId)
-        .collection('messages');
+            .db()
+            .collection('chats')
+            .doc(chatId)
+            .collection('messages');
 
     }
     // .getRef
@@ -369,14 +458,15 @@ export class Message extends Model {
                 from
             }).then(insertedDocData => {
 
-                insertedDocData.parent.doc(insertedDocData.id)
-                .set({
+                let msgRef = insertedDocData.parent.doc(insertedDocData.id);
+
+                msgRef.set({
                     status: 'sent'
                 }, {
                     merge: true
                 }).then(() => {
 
-                    res(true);
+                    res(msgRef);
 
                 });
 
@@ -390,9 +480,9 @@ export class Message extends Model {
     static uploadToStorage(from, file) {
 
         return Firebase.hd()
-        .ref(from)
-        .child(`${Date.now()}_${file.name}`)
-        .put(file);
+            .ref(from)
+            .child(`${Date.now()}_${file.name}`)
+            .put(file);
 
     }
     // .uploadToStorage
@@ -404,15 +494,15 @@ export class Message extends Model {
             let uploadTask = Message.uploadToStorage(from, file);
 
             uploadTask.on('state_changed', e => {
-    
+
                 console.info('upload', e);
 
             }, error => {
-    
+
                 console.error(error);
 
                 rej(error);
-    
+
             }, () => {
 
                 res(uploadTask.snapshot);
@@ -447,6 +537,55 @@ export class Message extends Model {
 
     }
     // .sendImage
+
+    static sendDocument(chatId, from, file, filePreview, fileinfo) {
+
+        Message.send(chatId, from, 'document', '').then(msgRef => {
+
+            Message.upload(from, file).then(snapshot => {
+
+                let downloadFile = snapshot.downloadURL;
+
+                if (filePreview) {
+
+                    Message.upload(from, filePreview).then(snapshot2 => {
+
+                        let downloadPreview = snapshot2.downloadURL;
+    
+                        msgRef.set({
+                            content: downloadFile,
+                            preview: downloadPreview,
+                            filename: file.name,
+                            filesize: file.size,
+                            filetype: file.type,
+                            fileinfo,
+                            status: 'sent'
+                        }, {
+                            merge: true
+                        });
+    
+                    });
+
+                } else {
+
+                    msgRef.set({
+                        content: downloadFile,
+                        filename: file.name,
+                        filesize: file.size,
+                        filetype: file.type,
+                        status: 'sent'
+                    }, {
+                        merge: true
+                    });
+
+                }
+
+            });
+
+        });
+
+    }
+    // .sendDocument
 
     getStatusViewElement() {
 
@@ -510,17 +649,6 @@ export class Message extends Model {
 
     }
     // .getStatusViewElement
-
-    static sendDocument(chatId, from, file, preview) {
-
-        Base64.convertBase64inImage(preview, false).then(file => {
-
-            console.log(file);
-
-        });
-
-    }
-    // .sendDocument
 
 }
 // .Message

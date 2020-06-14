@@ -313,7 +313,16 @@ export class ContactsEvents {
 
                     this.elList.panelMessagesContainer.appendChild(view);
 
-                } else if (me) {
+                } else {
+
+                    let view = message.getViewElement(me);
+
+                    this.elList.panelMessagesContainer.querySelector(`#_${data.id}`).innerHTML =
+                    view.innerHTML;
+
+                }
+
+                if (this.elList.panelMessagesContainer.querySelector(`#_${data.id}`) && me) {
 
                     let msgEl = this.elList.panelMessagesContainer.querySelector(`#_${data.id}`)
 

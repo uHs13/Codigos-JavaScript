@@ -254,6 +254,8 @@ export class AttachEvents {
 
                     this.elList.filenamePanelDocumentPreview.innerHTML = file.name;
 
+                    this.elList.infoPanelDocumentPreview.innerHTML = data.title;
+
                     this.elList.filePanelDocumentPreview.show();
 
                     this.elList.imagePanelDocumentPreview.hide();
@@ -281,12 +283,31 @@ export class AttachEvents {
 
             let base64 = this.elList.imgPanelDocumentPreview.src;
 
-            Message.sendDocument(
-                ContactsEvents.sendActiveContact().chatId,
-                this.user.email,
-                file,
-                base64
-            );
+            if (file.type === 'application/pdf') {
+
+                Base64.convertBase64inImage(base64, false).then(filePreview => {
+
+                    Message.sendDocument(
+                        ContactsEvents.sendActiveContact().chatId,
+                        this.user.email,
+                        file,
+                        filePreview,
+                        this.elList.infoPanelDocumentPreview.innerHTML
+                    );
+
+                });
+
+            } else {
+
+                Message.sendDocument(
+                    ContactsEvents.sendActiveContact().chatId,
+                    this.user.email,
+                    file
+                );
+
+            }
+
+            this.elList.btnClosePanelDocumentPreview.click();
 
         });
         // .btnSendDocument
