@@ -210,12 +210,6 @@ export class Message extends Model {
 
                 }
 
-                div.querySelector('.btn-message-send').on('click', () => {
-
-                    console.log('Enviar Mensagem');
-
-                });
-
                 break;
 
             case 'image':

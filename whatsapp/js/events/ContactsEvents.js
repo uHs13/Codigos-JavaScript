@@ -167,6 +167,8 @@ export class ContactsEvents {
 
                     });
 
+                    this.setActiveContact(contact);
+
                 }).catch(error => {
 
                     console.error(error);
@@ -297,6 +299,8 @@ export class ContactsEvents {
 
                 let me = (data.from === this.user.email);
 
+                let view = message.getViewElement(me);
+
                 if (!this.elList.panelMessagesContainer.querySelector(`#_${data.id}`)) {
 
                     if (!me) {
@@ -309,16 +313,13 @@ export class ContactsEvents {
 
                     }
 
-                    let view = message.getViewElement(me);
-
                     this.elList.panelMessagesContainer.appendChild(view);
 
                 } else {
 
-                    let view = message.getViewElement(me);
+                    let parent  = this.elList.panelMessagesContainer.querySelector(`#_${data.id}`).parentNode;
 
-                    this.elList.panelMessagesContainer.querySelector(`#_${data.id}`).innerHTML =
-                    view.innerHTML;
+                    parent.replaceChild(view, this.elList.panelMessagesContainer.querySelector(`#_${data.id}`));
 
                 }
 
@@ -330,6 +331,41 @@ export class ContactsEvents {
                     message.getStatusViewElement().outerHTML;
 
                 }
+
+                if (message.type === 'contact') {
+
+                    view.querySelector('.btn-message-send').on('click', () => {
+
+                        Chat.create(this.user.email, message.content.email).then(chat => {
+
+                            this.user.addContact(message.content.email, chat.id).then(res => {
+            
+                                let contact = new User({
+                                    email: message.content.email
+                                });
+            
+                                contact.addContact(this.user.email, chat.id).then(res => {
+            
+                                    this.user.getContacts();
+            
+                                });
+            
+                            }).catch(error => {
+            
+                                console.error(error);
+            
+                            });
+            
+                        }).catch(error => {
+            
+                            console.error(error);
+            
+                        });
+
+                    });
+
+                }
+
 
             });
 
