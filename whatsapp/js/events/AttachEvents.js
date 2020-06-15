@@ -4,6 +4,7 @@ import { Document } from '../document/Document';
 import { Message } from '../model/Message';
 import { ContactsEvents } from './ContactsEvents';
 import { Base64 } from '../Base64/Base64';
+import { ContactsController } from '../controller/ContactsController';
 
 export class AttachEvents {
 
@@ -323,12 +324,31 @@ export class AttachEvents {
 
             this.elList.modalContacts.show();
 
+            this.contactsController = new ContactsController(
+                this.elList.modalContacts,
+                this.user
+            );
+
+            this.contactsController.on('select', contact => {
+
+                Message.sendContact(
+                    ContactsEvents.sendActiveContact().chatId,
+                    this.user.email,
+                    contact
+                );
+
+            });
+
+            this.contactsController.open();
+
         });
         // .btnAttachContact
 
         this.elList.btnCloseModalContacts.on("click", () => {
 
             this.elList.modalContacts.hide();
+
+            this.contactsController.close();
 
         });
         // .btnCloseModalContacts
