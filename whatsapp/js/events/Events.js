@@ -10,7 +10,7 @@ export class Events {
 
         this.elList = el;
 
-        this.microphoneEvents = new MicrophoneEvents(this.elList);
+        this.microphoneEvents = new MicrophoneEvents(this.elList, firebaseUserInstance);
 
         this.profileEvents = new ProfileEvents(this.elList, firebaseUserInstance);
 

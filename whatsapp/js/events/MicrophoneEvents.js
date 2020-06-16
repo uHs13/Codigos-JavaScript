@@ -2,14 +2,18 @@ import { Screen } from '../screen/Screen';
 import { Time } from '../time/Time';
 import { Format } from '../format/Format';
 import { Event } from './Event';
+import { ContactsEvents } from './ContactsEvents';
+import { Message } from '../model/Message';
 
 export class MicrophoneEvents extends Event {
 
-    constructor(elList) {
+    constructor(elList, firebaseUserInstance) {
 
         super();
 
         this.elList = elList;
+
+        this.user = firebaseUserInstance;
 
         this._micTimer;
 
@@ -100,6 +104,18 @@ export class MicrophoneEvents extends Event {
 
         this.elList.btnFinishMicrophone.on("click", () => {
 
+            this.on('recorded', (audio, metadata) => {
+
+                Message.sendAudio(
+                    ContactsEvents.sendActiveContact().chatId,
+                    this.user.email,
+                    audio,
+                    metadata,
+                    this.user.photo
+                );
+
+            });
+
             this.screen.changeDisplayMode("recordMicrophone");
 
             this.stopRecorder();
@@ -166,26 +182,40 @@ export class MicrophoneEvents extends Event {
 
             let fileName = `userRecord${Date.now()}`;
 
-            let file = new File([blob], fileName, {
+            /**
+             * Para conseguir algumas informações acerca
+             * do arquivo de audio gravado é necessário
+             * utilizar outra classe da API de audio,
+             * AudioContext.
+             */
 
-                type: this._mimeType,
-                lastModified: Date.now()
-
-            });
-
-            console.log(file);
+            let audioContext = new AudioContext();
 
             let reader = new FileReader();
-            
+
             reader.onload = e => {
+                
+                /**
+                 * reader.result armazena o ArrayBuffer do
+                 * arquivo binário com o audio.
+                 */
 
-                let audio = new Audio(reader.result);
+                audioContext.decodeAudioData(reader.result).then(decodedAudio => {
+ 
+                    let file = new File([blob], fileName, {
 
-                audio.play();
+                        type: this._mimeType,
+                        lastModified: Date.now()
+
+                    });
+
+                    this.trigger('recorded', file, decodedAudio);
+
+                });
 
             };
 
-            reader.readAsDataURL(file);
+            reader.readAsArrayBuffer(blob);
 
         });
 
