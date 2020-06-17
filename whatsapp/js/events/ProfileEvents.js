@@ -1,4 +1,5 @@
 import {Screen} from '../screen/Screen';
+import { Upload } from '../upload/Upload';
 
 export class ProfileEvents {
 
@@ -55,6 +56,28 @@ export class ProfileEvents {
         });
         //.photoContainerEditProfile
 
+        this.elList.inputProfilePhoto.on("change", () => {
+
+            if (this.elList.inputProfilePhoto.files.length > 0) {
+
+                let file = this.elList.inputProfilePhoto.files[0];
+
+                Upload.send(this.user.email, file).then(snapshot => {
+
+                    this.user.photo = snapshot.downloadURL;
+                    this.user.save().then(() => {
+
+                        this.elList.btnClosePanelEditProfile.click();
+
+                    });
+
+                });
+
+            }
+
+        });
+        // .inputProfilePhoto
+
         this.elList.inputNamePanelEditProfile.on("keypress", e => {
 
             if (e.key === "Enter") {
@@ -83,8 +106,6 @@ export class ProfileEvents {
                 console.error(error);
 
             });
-
-            //this.user.save();
 
         });
         //.btnSavePanelEditProfile

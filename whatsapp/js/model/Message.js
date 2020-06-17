@@ -1,6 +1,7 @@
 import { Model } from './Model';
 import { Firebase } from '../firebase/Firebase';
 import { Format } from '../format/Format';
+import { Upload } from '../upload/Upload';
 
 export class Message extends Model {
 
@@ -608,37 +609,14 @@ export class Message extends Model {
 
     static uploadToStorage(from, file) {
 
-        return Firebase.hd()
-            .ref(from)
-            .child(`${Date.now()}_${file.name}`)
-            .put(file);
+       return Upload.uploadToStorage(from, file);
 
     }
     // .uploadToStorage
 
     static upload(from, file) {
 
-        return new Promise((res, rej) => {
-
-            let uploadTask = Message.uploadToStorage(from, file);
-
-            uploadTask.on('state_changed', e => {
-
-                console.info('upload', e);
-
-            }, error => {
-
-                console.error(error);
-
-                rej(error);
-
-            }, () => {
-
-                res(uploadTask.snapshot);
-
-            });
-
-        });
+        return Upload.send(from, file);
 
     }
     // .sendImage
