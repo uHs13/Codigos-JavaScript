@@ -74,6 +74,10 @@ export class Notify {
                 }
             );
 
+            let audio = new Audio("../../audio/alert.mp3");
+            audio.currentTime = 0;
+            audio.play();
+
             setTimeout(() => {
 
                 if (notification) notification.close();
