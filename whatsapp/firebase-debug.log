@@ -1,0 +1,84 @@
+[debug] [2020-06-18T08:24:21.105Z] ----------------------------------------------------------------------
+[debug] [2020-06-18T08:24:21.121Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\JRHAA\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init functions
+[debug] [2020-06-18T08:24:21.121Z] CLI Version:   4.2.0
+[debug] [2020-06-18T08:24:21.121Z] Platform:      win32
+[debug] [2020-06-18T08:24:21.121Z] Node Version:  v8.11.1
+[debug] [2020-06-18T08:24:21.121Z] Time:          Thu Jun 18 2020 05:24:21 GMT-0300 (Hora oficial do Brasil)
+[debug] [2020-06-18T08:24:21.121Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2020-06-18T08:24:21.136Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2020-06-18T08:24:21.136Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\xampp\htdocs\CodigosJS\whatsapp
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2020-06-18T08:24:22.587Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-06-18T08:24:22.587Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2020-06-18T08:24:22.841Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-18T08:24:22.887Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2020-06-18T08:24:44.250Z] Error: connect ETIMEDOUT 104.197.85.31:443
+    at Object._errnoException (util.js:1022:11)
+    at _exceptionWithHostPort (util.js:1044:20)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1198:14)
+[error] 
+[error] Error: Server Error. connect ETIMEDOUT 104.197.85.31:443
+[debug] [2020-06-18T08:30:00.959Z] ----------------------------------------------------------------------
+[debug] [2020-06-18T08:30:00.974Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\JRHAA\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init functions
+[debug] [2020-06-18T08:30:00.974Z] CLI Version:   4.2.0
+[debug] [2020-06-18T08:30:00.974Z] Platform:      win32
+[debug] [2020-06-18T08:30:00.974Z] Node Version:  v8.11.1
+[debug] [2020-06-18T08:30:00.990Z] Time:          Thu Jun 18 2020 05:30:00 GMT-0300 (Hora oficial do Brasil)
+[debug] [2020-06-18T08:30:00.990Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2020-06-18T08:30:01.068Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2020-06-18T08:30:01.068Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\xampp\htdocs\CodigosJS\whatsapp
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2020-06-18T08:30:01.146Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2020-06-18T08:30:22.550Z] Error: connect ETIMEDOUT 104.197.85.31:443
+    at Object._errnoException (util.js:1022:11)
+    at _exceptionWithHostPort (util.js:1044:20)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1198:14)
+[error] 
+[error] Error: Server Error. connect ETIMEDOUT 104.197.85.31:443

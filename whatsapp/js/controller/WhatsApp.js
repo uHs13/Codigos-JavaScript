@@ -3,6 +3,7 @@ import { Events } from '../events/Events';
 import { Format } from '../format/Format';
 import { Firebase } from '../firebase/Firebase';
 import { User } from './../model/User';
+import { Notify } from '../notify/Notify';
 
 export class WhatsApp {
 
@@ -37,7 +38,11 @@ export class WhatsApp {
 
                 }
 
-                this.events = new Events(this.el, this.user);
+                this.notify = new Notify(this.el, this.user);
+
+                this.notify.checkNotifications();
+
+                this.events = new Events(this.el, this.user, this.notify);
 
                 this.el.appContent.css({
                     display: 'flex'

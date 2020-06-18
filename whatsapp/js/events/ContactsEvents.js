@@ -2,12 +2,17 @@ import { Screen } from "../screen/Screen";
 import { Chat } from "../model/Chat";
 import { User } from "../model/User";
 import { Message } from "../model/Message";
+import { Format } from "../format/Format";
 
 export class ContactsEvents {
 
-    constructor(elList, firebaseUserInstance) {
+    constructor(elList, firebaseUserInstance, notify) {
+
+        this.messagesReceived = [];
 
         this.elList = elList;
+
+        this.notify = notify;
 
         this.screen = new Screen(this.elList);
 
@@ -65,7 +70,7 @@ export class ContactsEvents {
                                 <span dir="auto" title="${contact.name}" class="_1wjpf">${contact.name}</span>
                             </div>
                             <div class="_3Bxar">
-                                <span class="_3T2VG">${contact.lastMessageTime}</span>
+                                <span class="_3T2VG">${Format.timeStampToTime(contact.lastMessageTime)}</span>
                             </div>
                         </div>
                         <div class="_1AwDx">
@@ -287,7 +292,7 @@ export class ContactsEvents {
              * da para o final. Se a comparação retornar false quer dizer
              * que a barra de rolagem está acima do final.
              */
-            let autoScroll = (scrollTop >= scrollTopMax);    
+            let autoScroll = (scrollTop >= scrollTopMax);
 
             docs.forEach(doc => {
 
@@ -298,6 +303,14 @@ export class ContactsEvents {
                 message.fromJSON(data);
 
                 let me = (data.from === this.user.email);
+
+                if (!me && this.messagesReceived.filter(id => { return id === data.id}).length === 0) {
+
+                    this.notify.notification(data);
+
+                    this.messagesReceived.push(data.id);
+
+                }
 
                 let view = message.getViewElement(me);
 
@@ -351,9 +364,9 @@ export class ContactsEvents {
                                 });
             
                             }).catch(error => {
-            
+
                                 console.error(error);
-            
+
                             });
             
                         }).catch(error => {

@@ -5,6 +5,8 @@ export class MessageEvents {
 
     constructor(elList, firebaseUserInstance) {
 
+        this.activeState = true;
+
         this.elList = elList;
 
         this.user = firebaseUserInstance;
@@ -15,6 +17,18 @@ export class MessageEvents {
     // .constructor
 
     bindEvents() {
+
+        window.addEventListener('focus', () => {
+
+            this.activeState = true;
+
+        });
+
+        window.addEventListener('blur', () => {
+
+            this.activeState = false;
+
+        });
 
         this.elList.inputText.on("keypress", (e) => {
 
@@ -200,6 +214,13 @@ export class MessageEvents {
 
     }
     // .changeSendOptions
+
+    static sendActiveState() {
+
+        return window.app.events.messageEvents.activeState;
+
+    }
+    // .sendActiveState
 
 }
 // .MessageEvents

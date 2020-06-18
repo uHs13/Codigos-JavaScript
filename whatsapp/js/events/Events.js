@@ -6,7 +6,7 @@ import {MessageEvents} from '../events/MessageEvents';
 
 export class Events {
 
-    constructor(el, firebaseUserInstance) {
+    constructor(el, firebaseUserInstance, notify) {
 
         this.elList = el;
 
@@ -14,7 +14,7 @@ export class Events {
 
         this.profileEvents = new ProfileEvents(this.elList, firebaseUserInstance);
 
-        this.contactsEvents = new ContactsEvents(this.elList, firebaseUserInstance);
+        this.contactsEvents = new ContactsEvents(this.elList, firebaseUserInstance, notify);
 
         this.attachEvents = new AttachEvents(this.elList, firebaseUserInstance);
 
