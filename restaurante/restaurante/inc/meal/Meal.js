@@ -4,7 +4,9 @@ class Meal {
 
     static getAll() {
 
-        sql.query(`
+        return new Promise((res, rej) => {
+
+            sql.query(`
             SELECT
             TITLE as title,
             DESCRIPTION as description,
@@ -12,11 +14,17 @@ class Meal {
             PHOTO as photo
             FROM TB_MENUS
             ORDER BY TITLE
-        `, (err, res) => {
+        `, (err, results) => {
 
-            if (err) console.error(err);
+            if (err){
 
-            return res;
+                rej(err)
+
+            };
+
+            res(results);
+
+        });
 
         });
 
