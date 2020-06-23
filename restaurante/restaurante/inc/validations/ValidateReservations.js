@@ -1,6 +1,3 @@
-const { RequestTimeout } = require("http-errors");
-
-let validate = require('./Validate');
 const Validate = require("./Validate");
 
 class ValidateReservations {

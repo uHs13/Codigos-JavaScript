@@ -21,7 +21,9 @@ export class Model extends Event{
     // .fromJSON
 
     toJSON() {
+
         return this._data;
+
     }
     // .toJSON
 
