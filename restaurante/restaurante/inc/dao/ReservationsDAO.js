@@ -30,7 +30,7 @@ class ReservationsDAO {
                 jsonData.time
             ], (error, results) => {
 
-                
+                (error)? rej(error): res(results);
 
             });
 

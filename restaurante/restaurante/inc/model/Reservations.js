@@ -1,3 +1,5 @@
+const Utils = require("../utils/Utils");
+
 class Reservations {
 
     constructor(data = null) {
@@ -9,9 +11,9 @@ class Reservations {
 
     save() {
 
-        let dao = new ReservationsDAO();
+        let dao = new ReservationsDAO(this.data);
 
-        return dao.save(Utils.safeEntry(this.data));
+        return dao.save();
 
     }
     // .save

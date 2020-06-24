@@ -54,7 +54,15 @@ router.post('/reservations', (req, res, next) => {
 
     let reservations = new Reservations(resolve);
 
-    reservations.save();
+    reservations.save().then(res => {
+
+      res.send(res);
+
+    }, rej => {
+
+      res.send(rej)
+
+    });
 
   }, (reject) => {
 
