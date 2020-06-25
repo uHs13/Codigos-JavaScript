@@ -1,4 +1,4 @@
-const Utils = require("../utils/Utils");
+const ReservationsDAO = require("../dao/ReservationsDAO");
 
 class Reservations {
 
@@ -11,9 +11,9 @@ class Reservations {
 
     save() {
 
-        let dao = new ReservationsDAO(this.data);
+        let dao = new ReservationsDAO();
 
-        return dao.save();
+        return dao.save(this.data);
 
     }
     // .save

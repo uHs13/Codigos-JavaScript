@@ -6,6 +6,10 @@ class ReservationsDAO {
 
         return new Promise((res, rej) => {
 
+            let date = jsonData.date.split('/');
+
+            jsonData.date = `${date[2]}-${date[1]}-${date[0]}`;
+
             sql.query(`
 
                 INSERT INTO TB_RESERVATIONS (
@@ -19,7 +23,7 @@ class ReservationsDAO {
                     ?,
                     ?,
                     ?,
-                    ?
+                    CAST(? AS TIME)
                     )
 
             `, [
@@ -30,7 +34,7 @@ class ReservationsDAO {
                 jsonData.time
             ], (error, results) => {
 
-                (error)? rej(error): res(results);
+                (error)? rej(error): res(true);
 
             });
 

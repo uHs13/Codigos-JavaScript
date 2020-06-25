@@ -54,13 +54,15 @@ router.post('/reservations', (req, res, next) => {
 
     let reservations = new Reservations(resolve);
 
-    reservations.save().then(res => {
+    reservations.save().then(response => {
 
-      res.send(res);
+      req.body = {};
 
-    }, rej => {
+      renderReservations.render(req, res, null, 'Reserva realizada com sucesso!');
 
-      res.send(rej)
+    }, reject => {
+
+      renderReservations.render(req, res, reject)
 
     });
 
