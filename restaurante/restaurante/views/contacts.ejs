@@ -27,17 +27,7 @@
 			<div class="col-md-12">
 				<div class="col-md-6 animate-box">
 
-					<% if (typeof error === 'string') { %>
-					<div class='alert alert-danger'>
-						<%= error %>
-					</div>
-					<% } %>
-
-					<% if (typeof success === 'string') { %>
-					<div class='alert alert-success'>
-						<%= success %>
-					</div>
-					<% } %>
+					<%- include('./includes/messages.ejs') -%>
 
 					<h3>Entre em Contato</h3>
 					<form action="/contacts" method='POST'>
