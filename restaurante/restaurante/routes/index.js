@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 const Meal = require('./../inc/meal/Meal');
 const ValidateReservations = require('./../inc/validations/ValidateReservations');
+const ValidateContacts = require('./../inc/validations/ValidateContacts');
 const renderReservations = require('../inc/render/renderReservations');
 const Reservations = require('../inc/model/Reservations');
+const renderContacts = require('../inc/render/renderContacts');
+const ContactsDAO = require('../inc/dao/ContactsDAO');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -21,8 +24,34 @@ router.get('/', function (req, res, next) {
 
 router.get('/contacts', (req, res, next) => {
 
-  res.render('contacts', {
-    title: 'Restaurante Saboroso !'
+  renderContacts.render(req, res);
+
+});
+
+router.post('/contacts', (req, res, next) => {
+
+  let validate = new ValidateContacts(req.body);
+
+  validate.validate().then(data => {
+
+    let contacts = new ContactsDAO();
+
+    contacts.save(data).then(resolve => {
+
+      req.body = {};
+
+      renderContacts.render(req, res, null, 'Mensagem enviada com sucesso!');
+
+    }, reject => {
+
+      renderContacts.render(req, res, reject);
+
+    });
+
+  }, reject => {
+
+    renderContacts.render(req, res, reject);
+
   });
 
 });
