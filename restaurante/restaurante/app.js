@@ -10,7 +10,8 @@ let contactsRouter = require('./routes/contacts');
 let menusRouter = require('./routes/menus');
 let reservationsRouter = require('./routes/reservations');
 let servicesRouter = require('./routes/services');
-let adminRouter = require('./routes/admin');
+let adminLoginRouter = require('./routes/admin/adminLogin');
+let adminMainRouter = require('./routes/admin/adminMain');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
 
@@ -42,7 +43,8 @@ app.use('/contacts', contactsRouter);
 app.use('/menus', menusRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/services', servicesRouter);
-app.use('/admin', adminRouter);
+app.use('/admin', adminLoginRouter);
+app.use('/admin/main', adminMainRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

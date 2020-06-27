@@ -2,13 +2,41 @@ class Validate {
 
     constructor(validations, data) {
 
-        this.validations = validations;
-        this.data = data;
+        this._validations = validations;
+        this._data = data;
 
     }
     // .constructor
 
+    get validations() {
+ 
+        return this._validations;
+
+    }
+    // .validations
+
+    set validations(array) {
+ 
+        this._validations = array;
+
+    }
+    // .validations
+
+    get data() {
+ 
+        return this._data;
+
+    }
+    // .data
+
     validate() {
+
+        return this.validation(this.validations, this.data);
+
+    }
+    // .validate
+
+    validation() {
 
         return new Promise((res, rej) => {
 
