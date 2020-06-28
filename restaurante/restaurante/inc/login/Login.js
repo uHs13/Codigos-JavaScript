@@ -38,6 +38,39 @@ class Login {
     }
     // .login
 
+    static checkUserUUID(uuid) {
+
+        return new Promise((res, rej) => {
+
+            let dao = new LoginDAO();
+
+            dao.checkUserUUID(uuid).then(response => {
+
+                if (response == '1') {
+
+                    dao.changeUserUUID(uuid).then(results => {
+
+                        res(results);
+
+                    });
+
+                } else {
+
+                    rej();
+
+                }               
+
+            }, reject => {
+
+                rej(reject);
+
+            });
+
+        });
+
+    }
+    // .checkUUID
+
 }
 // .Login
 

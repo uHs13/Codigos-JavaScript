@@ -38,4 +38,12 @@ router.post('/', (req, res, next) => {
 
 });
 
+router.get('/logout', (req, res, next) => {
+
+    delete req.session.user;
+
+    res.redirect('/admin/');
+
+});
+
 module.exports = router;
