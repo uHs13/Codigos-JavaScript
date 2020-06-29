@@ -12,6 +12,11 @@ let reservationsRouter = require('./routes/reservations');
 let servicesRouter = require('./routes/services');
 let adminLoginRouter = require('./routes/admin/adminLogin');
 let adminMainRouter = require('./routes/admin/adminMain');
+let adminContactsRouter = require('./routes/admin/adminContacts');
+let adminEmailsRouter = require('./routes/admin/adminEmails');
+let adminMenusRouter = require('./routes/admin/adminMenus');
+let adminReservationsRouter = require('./routes/admin/adminReservations');
+let adminUsersRouter = require('./routes/admin/adminUsers');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
 
@@ -45,6 +50,11 @@ app.use('/reservations', reservationsRouter);
 app.use('/services', servicesRouter);
 app.use('/admin', adminLoginRouter);
 app.use('/admin/main', adminMainRouter);
+app.use('/admin/contacts', adminContactsRouter);
+app.use('/admin/emails', adminEmailsRouter);
+app.use('/admin/menus', adminMenusRouter);
+app.use('/admin/reservations', adminReservationsRouter);
+app.use('/admin/users', adminUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

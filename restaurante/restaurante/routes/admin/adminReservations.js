@@ -9,9 +9,10 @@ router.use(adminMenu);
 
 router.get('/', (req, res, next) => {
 
-    res.render('admin/index', {
+    res.render('admin/reservations', {
         title: 'Administração Saboroso',
         user: 'Ice Manager',
+        date: Date.now(),
         menus: req.menus
     });
 
