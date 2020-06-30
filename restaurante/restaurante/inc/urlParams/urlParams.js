@@ -17,7 +17,7 @@ module.exports = {
                     title: 'Administração Saboroso',
                     user: userInfo
                 }, params));
-    
+
             });
 
         });

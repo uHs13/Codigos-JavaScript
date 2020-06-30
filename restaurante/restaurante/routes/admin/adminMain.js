@@ -3,6 +3,7 @@ var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
 let urlParams = require('./../../inc/urlParams/urlParams');
+const InfoDAO = require('./../../inc/dao/InfoDAO');
 
 router.use(adminAuth);
 
@@ -10,9 +11,13 @@ router.use(adminMenu);
 
 router.get('/', (req, res, next) => {
 
-    urlParams.getParams(req).then(params => {
+    InfoDAO.getGeneralInfo(req.session.user).then(generalInfo => {
 
-        res.render('admin/index', params);
+        urlParams.getParams(req, generalInfo).then(params => {
+
+            res.render('admin/index', params);
+
+        });
 
     });
 
