@@ -10,20 +10,20 @@
         </div>
         <div class="row">
 
-            <% meals.forEach(function (meal) { %>
+            <% Object.keys(meals).forEach(function (key) { %>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="<%= meal.photo %>" class="fh5co-card-item image-popup">
+                <a href="<%= meals[key].photo %>" class="fh5co-card-item image-popup">
                     <figure>
                         <div class="overlay">
                             <i class="ti-plus"></i>
                         </div>
-                        <img src="<%= meal.photo %>" alt="Image" class="img-responsive">
+                        <img src="<%= meals[key].photo %>" alt="Image" class="img-responsive">
                     </figure>
                     <div class="fh5co-text">
-                        <h2><%= meal.title %></h2>
-                        <p><%= meal.description %></p>
+                        <h2><%= meals[key].title %></h2>
+                        <p><%= meals[key].description %></p>
                         <p>
-                            <span class="price cursive-font">R$<%= meal.price %></span>
+                            <span class="price cursive-font">R$<%= meals[key].price %></span>
                         </p>
                     </div>
                 </a>

@@ -3,6 +3,7 @@ var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
 let urlParams = require('./../../inc/urlParams/urlParams');
+let MenusDAO = require('./../../inc/dao/MenuDAO');
 
 router.use(adminAuth);
 
@@ -10,9 +11,13 @@ router.use(adminMenu);
 
 router.get('/', (req, res, next) => {
 
-    urlParams.getParams(req).then(params => {
+    MenusDAO.getAll().then(menusData => {
 
-        res.render('admin/menus', params);
+        urlParams.getParams(req, {menusData}).then(params => {
+
+            res.render('admin/menus', params);
+
+        });
 
     });
 
