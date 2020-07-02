@@ -19,8 +19,35 @@ let adminReservationsRouter = require('./routes/admin/adminReservations');
 let adminUsersRouter = require('./routes/admin/adminUsers');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
+let formidable = require('formidable');
 
 var app = express();
+
+// app.use(function (req, res, next) {
+
+//   if (req.method.toLowerCase() === 'post') {
+
+//     let form = formidable.IncomingForm({
+//       uploadDir: path.join(__dirname, '/public/images'),
+//       keepExtensions: true
+//     });
+
+//     form.parse(req, function (error, fields, files) {
+
+//       req.fields = fields;
+//       req.files = files;
+
+//       next();
+
+//     });
+
+//   } else {
+
+//     next();
+
+//   }
+
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,12 +84,12 @@ app.use('/admin/reservations', adminReservationsRouter);
 app.use('/admin/users', adminUsersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

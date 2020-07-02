@@ -62,7 +62,7 @@
 <div class="modal fade" id="modal-create">
   <div class="modal-dialog">
     <div class="modal-content" style="border-top: 3px solid #00a65a;">
-      <form method="post">
+      <form method="post" id='form-create'>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -102,7 +102,7 @@
 <div class="modal fade" id="modal-update">
   <div class="modal-dialog">
     <div class="modal-content" style="border-top: 3px solid #00c0ef;">
-      <form method="post">
+      <form method="post" id='form-update'>
         <input type="hidden" name="id">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -139,7 +139,36 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
 <script>
   document.querySelector('#menus').classList.add('active');
 </script>
+
+<script>
+
+let formCreate = document.querySelector('#form-create');
+
+formCreate.addEventListener('submit', event => {
+
+  event.preventDefault();
+
+  let formCreateData = new FormData(formCreate);
+
+  fetch('/admin/menus', {
+    method: 'POST',
+    body: formCreateData
+  }).then(response => {
+
+    response.json().then(json => {
+
+      console.log('JSON', json);
+
+    });
+
+  });
+
+});
+
+</script>
+
 <%- include('./../includesadmin/footer.ejs') -%>

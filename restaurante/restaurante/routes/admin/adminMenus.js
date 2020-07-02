@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 
-    res.send(req.body);
+    res.send(req.fields);
 
 });
 
