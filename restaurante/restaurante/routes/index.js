@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const MenuDAO = require('./../inc/dao/MenuDAO');
+const MenusDAO = require('./../inc/dao/MenusDAO');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
-  MenuDAO.getAll().then(results => {
+  MenusDAO.getAll().then(results => {
 
     res.render('index', {
       title: 'Restaurante Saboroso !',

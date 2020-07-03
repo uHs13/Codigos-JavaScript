@@ -146,28 +146,28 @@
 
 <script>
 
-let formCreate = document.querySelector('#form-create');
+  let formCreate = document.querySelector('#form-create');
 
-formCreate.addEventListener('submit', event => {
+  formCreate.addEventListener('submit', event => {
 
-  event.preventDefault();
+    event.preventDefault();
 
-  let formCreateData = new FormData(formCreate);
+    let formCreateData = new FormData(formCreate);
 
-  fetch('/admin/menus', {
-    method: 'POST',
-    body: formCreateData
-  }).then(response => {
+    fetch('/admin/menus', {
+      method: 'POST',
+      body: formCreateData
+    }).then(response => {
 
-    response.json().then(json => {
+      response.json().then(json => {
 
-      console.log('JSON', json);
+        window.location.reload();
+
+      });
 
     });
 
   });
-
-});
 
 </script>
 

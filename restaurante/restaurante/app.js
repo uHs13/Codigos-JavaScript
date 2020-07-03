@@ -19,35 +19,8 @@ let adminReservationsRouter = require('./routes/admin/adminReservations');
 let adminUsersRouter = require('./routes/admin/adminUsers');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
-let formidable = require('formidable');
 
 var app = express();
-
-// app.use(function (req, res, next) {
-
-//   if (req.method.toLowerCase() === 'post') {
-
-//     let form = formidable.IncomingForm({
-//       uploadDir: path.join(__dirname, '/public/images'),
-//       keepExtensions: true
-//     });
-
-//     form.parse(req, function (error, fields, files) {
-
-//       req.fields = fields;
-//       req.files = files;
-
-//       next();
-
-//     });
-
-//   } else {
-
-//     next();
-
-//   }
-
-// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

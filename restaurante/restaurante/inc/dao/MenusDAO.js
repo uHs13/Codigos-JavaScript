@@ -39,6 +39,32 @@ class MenusDAO {
     }
     // .getAll
 
+    static save(menuData) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                CALL SP_INSERTMENUS(?, ?, ?, ?)
+
+            `, [
+                menuData.title,
+                menuData.description,
+                menuData.price,
+                `images/${menuData.photo.path}`
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                res(results);
+
+            });
+
+        });
+
+    }
+    // .save
+
 }
 // .MenusDAO
 
