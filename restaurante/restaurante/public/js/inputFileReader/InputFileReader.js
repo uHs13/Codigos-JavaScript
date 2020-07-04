@@ -34,6 +34,8 @@ class InputFileReader {
 
             reader.onload = () => {
 
+                console.log(reader);
+
                 res(reader.result);
 
             };
