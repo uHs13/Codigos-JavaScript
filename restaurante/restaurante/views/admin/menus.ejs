@@ -37,15 +37,15 @@
           </thead>
           <tbody>
             <% Object.keys(menusData).forEach(key => { %>
-            <tr data-row='<% JSON.stringify(menusData[key])%>'>
+            <tr data-row='<%= JSON.stringify(menusData[key])%>'>
               <td><%= eval(key) + 1 %></td>
               <td><img src="/../<%= menusData[key].photo %>" alt="" style="height: 18px;"></td>
               <td><%= menusData[key].title %></td>
               <td><%= menusData[key].description %></td>
               <td>R$<%= menusData[key].price %></td>
-              <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal"
-                  data-target="#modal-update"><i class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button"
-                  class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i> Excluir</button></td>
+              <td><button type="button" class="btn btn-xs btn-info btn-update"><i class="fa fa-pencil"></i>
+                  Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
+                    class="fa fa-trash"></i> Excluir</button></td>
             </tr>
           </tbody>
           <% }); %>
@@ -84,7 +84,7 @@
           </div>
           <div class="form-group">
             <label for="inputPhotoCreate">Foto</label>
-            <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+            <img style="width: 128px; height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
             <input type="file" class="form-control" id="inputPhotoCreate" name="photo">
           </div>
         </div>
@@ -125,7 +125,7 @@
           </div>
           <div class="form-group">
             <label for="inputPhotoUpdate">Foto</label>
-            <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+            <img style="width: 128px; height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
             <input type="file" class="form-control" id="inputPhotoUpdate" name="photo">
           </div>
         </div>
@@ -144,7 +144,19 @@
   document.querySelector('#menus').classList.add('active');
 </script>
 
+<script src="/js/inputFileReader/InputFileReader.js"></script>
+
 <script>
+
+new InputFileReader(
+    '#form-create [type=file]',
+    '#form-create img'
+);
+
+new InputFileReader(
+    '#form-update [type=file]',
+    '#form-update img'
+);
 
   let formCreate = document.querySelector('#form-create');
 
@@ -164,6 +176,48 @@
         window.location.reload();
 
       });
+
+    });
+
+  });
+
+  let formUpdate = document.querySelector('#form-update');
+
+  document.querySelectorAll('.btn-update').forEach(btn => {
+
+    btn.addEventListener('click', event => {
+
+      let tr = event.path.find(el => {
+
+        return (el.tagName.toUpperCase() === 'TR');
+
+      });
+
+      let trData = JSON.parse(tr.dataset.row);
+
+      for (let inputName in trData) {
+
+        let input = formUpdate.querySelector(`[name = ${inputName}]`);
+
+        switch (input.type.toLowerCase()) {
+
+          case 'file':
+
+            formUpdate.querySelector('img').src = `/${trData[inputName]}`;  
+
+            break;
+
+          default:
+
+            input.value = trData[inputName];
+
+            break;
+
+        }
+
+      }
+
+      $('#modal-update').modal('show');
 
     });
 
