@@ -90,7 +90,30 @@ class MenusDAO {
         });
 
     }
-    // .save
+    // .edit
+
+    static delete(id) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                CALL SP_DELETEMENUS(?)
+
+            `, [
+                id
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                res(results);
+
+            });
+
+        });
+
+    }
+    // .delete
 
 }
 // .MenusDAO

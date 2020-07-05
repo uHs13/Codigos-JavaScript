@@ -1,37 +1,28 @@
 let sql = require('./../db/db');
+const MyDate = require('./../mydate/MyDate');
 
 class ReservationsDAO {
 
-    save(jsonData) {
+    static save(reservation) {
 
         return new Promise((res, rej) => {
 
-            let date = jsonData.date.split('/');
+            if (reservation.date.search('/') > 0) {
 
-            jsonData.date = `${date[2]}-${date[1]}-${date[0]}`;
+                reservation.date = MyDate.adaptBrDatetoMysqlDate(reservation.date);
+
+            }
 
             sql.query(`
 
-                INSERT INTO TB_RESERVATIONS (
-                    NAME,
-                    EMAIL,
-                    PEOPLE,
-                    DATE,
-                    TIME
-                    ) VALUES (
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    CAST(? AS TIME)
-                    )
+               CALL SP_INSERTRESERVATIONS(?, ?, ?, ?, ?)
 
             `, [
-                jsonData.name,
-                jsonData.email,
-                jsonData.people,
-                jsonData.date,
-                jsonData.time
+                reservation.name,
+                reservation.email,
+                reservation.people,
+                reservation.date,
+                reservation.time
             ], (error, results) => {
 
                 (error)? rej(error): res(true);
@@ -42,6 +33,97 @@ class ReservationsDAO {
 
     }
     // .save
+
+    static getAll() {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+               CALL SP_GETRESERVATIONS
+
+            `, (error, results) => {
+
+                if (error) rej(error);
+
+                let response = {};
+
+                results[0].forEach((result, index) => {
+
+                    let reservations = {
+                        id: result['ID'],
+                        name: result['NAME'],
+                        email: result['EMAIL'],
+                        people: result['PEOPLE'],
+                        date: result['DATE'],
+                        time: result['TIME'],
+                    };
+
+                    response[index] = reservations;
+
+                });
+
+                res(response);
+
+            });
+
+        });
+
+    }
+    // .getAll
+
+    static edit(reservation) {
+
+        return new Promise((res, rej) => {
+
+            let time = reservation.time.split(':');
+
+            reservation.time = `${time[0]}:${time[1]}`;
+
+            sql.query(`
+
+               CALL SP_EDITRESERVATIONS(?, ?, ?, ?, ?, ?)
+
+            `, [
+                reservation.id,
+                reservation.name,
+                reservation.email,
+                reservation.people,
+                reservation.date,
+                reservation.time
+            ], (error, results) => {
+
+                (error)? rej(error): res(true);
+
+            });
+
+        });
+
+    }
+    // .edit
+
+    static delete(id) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                CALL SP_DELETERESERVATIONS(?)
+
+            `, [
+                id
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                res(results);
+
+            });
+
+        });
+
+    }
+    // .delete
 
 }
 // .ReservationsDAO

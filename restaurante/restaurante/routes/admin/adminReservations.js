@@ -2,17 +2,27 @@ var express = require('express');
 var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
+let formidable = require('./../../inc/formidable/formidable');
 let urlParams = require('./../../inc/urlParams/urlParams');
+const ReservationsDAO = require('./../../inc/dao/ReservationsDAO');
+let formDataAssign = require('./../../inc/formDataAssign/formDataAssign');
+let moment =  require('moment');
 
 router.use(adminAuth);
 
 router.use(adminMenu);
 
+router.use(formidable);
+
 router.get('/', (req, res, next) => {
 
-    urlParams.getParams(req, {date: {}}).then(params => {
+    ReservationsDAO.getAll().then(reservationsData => {
 
-        res.render('admin/reservations', params);
+        urlParams.getParams(req, {reservationsData, date :{}, moment}).then(params => {
+
+            res.render('admin/reservations', params);
+
+        });
 
     });
 
@@ -20,7 +30,55 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 
-    res.send(req.body);
+    ReservationsDAO.save(
+        formDataAssign.assign(req)
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
+
+});
+
+router.post('/edit/', (req, res, next) => {
+
+    ReservationsDAO.edit(
+        formDataAssign.assign(req)
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
+
+});
+
+router.delete('/:id', (req, res, next) => {
+
+    ReservationsDAO.delete(
+        req.params.id
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
 
 });
 

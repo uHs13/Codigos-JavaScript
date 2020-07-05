@@ -146,6 +146,9 @@
 
 <script src="/js/sendFormData/SendFormData.js"></script>
 <script src="/js/inputFileReader/InputFileReader.js"></script>
+<script src="/js/functions/functions.js"></script>
+<script src="/js/functions/formcreate.js"></script>
+<script src="/js/functions/formupdate.js"></script>
 
 <script>
 
@@ -159,59 +162,29 @@
     '#form-update img'
   );
 
-  let formCreate = document.querySelector('#form-create');
-
-  formCreate.send().then(() => {
-
-    window.location.reload();
-
-  });
-
-  let formUpdate = document.querySelector('#form-update');
-
-  document.querySelectorAll('.btn-update').forEach(btn => {
+  forEachSelector('.btn-delete', btn => {
 
     btn.addEventListener('click', event => {
 
-      let tr = event.path.find(el => {
+      let trData = getEventTrDataSetJson(event);
 
-        return (el.tagName.toUpperCase() === 'TR');
+      if (confirm(`delete '${trData.title}' ?`)) {
 
-      });
+        fetch(`/admin/menus/${trData.id}`, {
+          method: 'DELETE'
+        }).then(response => {
 
-      let trData = JSON.parse(tr.dataset.row);
+          response.json().then(() => {
 
-      for (let inputName in trData) {
+            window.location.reload();
 
-        let input = formUpdate.querySelector(`[name = ${inputName}]`);
+          });
 
-        switch (input.type.toLowerCase()) {
-
-          case 'file':
-
-            formUpdate.querySelector('img').src = `/${trData[inputName]}`;
-
-            break;
-
-          default:
-
-            input.value = trData[inputName];
-
-            break;
-
-        }
+        });
 
       }
 
-      $('#modal-update').modal('show');
-
     });
-
-  });
-
-  formUpdate.send().then((response) => {
-
-    window.location.reload();
 
   });
 

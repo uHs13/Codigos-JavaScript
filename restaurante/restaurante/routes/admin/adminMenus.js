@@ -70,4 +70,22 @@ router.post('/edit', (req, res, next) => {
 
 });
 
+router.delete('/:id', (req, res, next) => {
+
+    MenusDAO.delete(
+        req.params.id
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
+
+});
+
 module.exports = router;
