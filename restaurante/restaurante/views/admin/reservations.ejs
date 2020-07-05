@@ -217,7 +217,7 @@
 
       let trData = getEventTrDataSetJson(event);
 
-      if (confirm(`delete '${trData.title}' ?`)) {
+      if (confirm(`delete '${trData.name}' ?`)) {
 
         fetch(`/admin/reservations/${trData.id}`, {
           method: 'DELETE'
