@@ -144,11 +144,11 @@
   document.querySelector('#menus').classList.add('active');
 </script>
 
+<script src="/js/moment.min.js"></script>
 <script src="/js/sendFormData/SendFormData.js"></script>
 <script src="/js/inputFileReader/InputFileReader.js"></script>
-<script src="/js/functions/functions.js"></script>
-<script src="/js/functions/formcreate.js"></script>
-<script src="/js/functions/formupdate.js"></script>
+<script src="/js/elFunctions/ElFunctions.js"></script>
+<script src="/js/grid/Grid.js"></script>
 
 <script>
 
@@ -162,30 +162,9 @@
     '#form-update img'
   );
 
-  forEachSelector('.btn-delete', btn => {
-
-    btn.addEventListener('click', event => {
-
-      let trData = getEventTrDataSetJson(event);
-
-      if (confirm(`delete '${trData.title}' ?`)) {
-
-        fetch(`/admin/menus/${trData.id}`, {
-          method: 'DELETE'
-        }).then(response => {
-
-          response.json().then(() => {
-
-            window.location.reload();
-
-          });
-
-        });
-
-      }
-
-    });
-
+  new Grid({
+    deleteUrl: '/admin/menu/${trData.id}',
+    deleteMsg: 'delete ${trData.name} ?'
   });
 
 </script>

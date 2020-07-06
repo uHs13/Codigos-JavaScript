@@ -23,4 +23,4 @@ function getEventTrDataSetJson(event) {
     return JSON.parse(tr.dataset.row);
 
 }
-  // .getEventTrDataSetJson
+// .getEventTrDataSetJson

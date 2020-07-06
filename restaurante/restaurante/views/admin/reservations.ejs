@@ -205,36 +205,14 @@
 
 <script src="/js/moment.min.js"></script>
 <script src="/js/sendFormData/SendFormData.js"></script>
-<script src="/js/functions/functions.js"></script>
-<script src="/js/functions/formcreate.js"></script>
-<script src="/js/functions/formupdate.js"></script>
+<script src="/js/elFunctions/ElFunctions.js"></script>
+<script src="/js/grid/Grid.js"></script>
 
 <script>
 
-  forEachSelector('.btn-delete', btn => {
-
-    btn.addEventListener('click', event => {
-
-      let trData = getEventTrDataSetJson(event);
-
-      if (confirm(`delete '${trData.name}' ?`)) {
-
-        fetch(`/admin/reservations/${trData.id}`, {
-          method: 'DELETE'
-        }).then(response => {
-
-          response.json().then(() => {
-
-            window.location.reload();
-
-          });
-
-        });
-
-      }
-
-    });
-
+  new Grid({
+    deleteUrl: '/admin/reservations/${trData.id}',
+    deleteMsg: 'delete ${trData.name} ?',
   });
 
 </script>
