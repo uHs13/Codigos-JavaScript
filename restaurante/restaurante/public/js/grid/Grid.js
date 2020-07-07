@@ -8,10 +8,35 @@ class Grid {
 
                     $('#modal-update').modal('show');
 
-                }
+                },
+                afterDeleteClick: () => {
+
+                    window.location.reload();
+
+                },
+                afterFormCreate: (response) => {
+
+                    window.location.reload();
+
+                },
+                afterFormUpdate: (response) => {
+
+                    window.location.reload();
+
+                },
+                afterFormCreateError: (e) => {
+
+                    alert('Erro ao enviar o formulário');
+
+                },
+                afterFormUpdateError: (e) => {
+
+                    alert('Erro ao enviar o formulário');
+
+                },
             },
             configurationJson.listeners
-        )
+        );
 
         this.options = Object.assign(
             {},
@@ -37,7 +62,11 @@ class Grid {
 
         this.formCreate.send().then(response => {
 
-            window.location.reload();
+           this.triggerEvent('afterFormCreate', [response]);
+
+        }).catch(error => {
+
+            this.triggerEvent('afterFormCreateError', [error]);
 
         });
 
@@ -45,7 +74,11 @@ class Grid {
 
         this.formUpdate.send().then((response) => {
 
-            window.location.reload();
+           this.triggerEvent('afterFormUpdate', [response]);
+
+        }).catch(error => {
+
+            this.triggerEvent('afterFormCreateError', [error]);
 
         });
 
@@ -73,31 +106,9 @@ class Grid {
 
                 let trData = ElFunctions.getEventTrDataSetJson(event);
 
-                for (let inputName in trData) {
+                for (let fieldName in trData) {
 
-                    let input = this.formUpdate.querySelector(`[name = ${inputName}]`);
-
-                    switch (input.type.toLowerCase()) {
-
-                        case 'file':
-
-                            this.formUpdate.querySelector('img').src = `/${trData[inputName]}`;
-
-                            break;
-
-                        case 'date':
-
-                            input.value = moment(trData[inputName]).format('YYYY-MM-DD');
-
-                            break;
-
-                        default:
-
-                            input.value = trData[inputName];
-
-                            break;
-
-                    }
+                    this.options.onUpdateLoad(this.formUpdate, fieldName, trData);
 
                 }
 
@@ -108,6 +119,8 @@ class Grid {
         });
 
         ElFunctions.forEachSelector(this.options.btnDelete, btn => {
+
+            this.triggerEvent('beforeDeleteClick');
 
             btn.addEventListener('click', event => {
 
@@ -121,7 +134,7 @@ class Grid {
 
                         response.json().then(() => {
 
-                            window.location.reload();
+                            this.triggerEvent('afterDeleteClick');
 
                         });
 

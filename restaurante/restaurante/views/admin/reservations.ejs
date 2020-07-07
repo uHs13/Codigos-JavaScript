@@ -213,6 +213,27 @@
   new Grid({
     deleteUrl: '/admin/reservations/${trData.id}',
     deleteMsg: 'delete ${trData.name} ?',
+    onUpdateLoad: (formUpdate, fieldName, data) => {
+
+      let input = formUpdate.querySelector(`[name = ${fieldName}]`);
+
+      switch (input.type.toLowerCase()) {
+
+        case 'date':
+
+          input.value = moment(data[fieldName]).format('YYYY-MM-DD');
+
+          break;
+
+        default:
+
+          input.value = data[fieldName];
+
+          break;
+
+      }
+
+    }
   });
 
 </script>

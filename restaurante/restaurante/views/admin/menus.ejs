@@ -163,8 +163,29 @@
   );
 
   new Grid({
-    deleteUrl: '/admin/menu/${trData.id}',
-    deleteMsg: 'delete ${trData.name} ?'
+    deleteUrl: '/admin/menus/${trData.id}',
+    deleteMsg: 'delete ${trData.name} ?',
+    onUpdateLoad: (formUpdate, fieldName, data) => {
+
+      let input = formUpdate.querySelector(`[name = ${fieldName}]`);
+
+      switch (input.type.toLowerCase()) {
+
+        case 'file':
+
+          formUpdate.querySelector('img').src = `/${data[fieldName]}`;
+
+          break;
+
+        default:
+
+          input.value = data[fieldName];
+
+          break;
+
+      }
+
+    }
   });
 
 </script>
