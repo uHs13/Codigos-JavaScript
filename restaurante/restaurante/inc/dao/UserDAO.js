@@ -47,7 +47,7 @@ class UserDAO {
                 results[0].forEach((result, index) => {
 
                     let users = {
-                        id: result['ID'],
+                        id: result['IDUSERS'],
                         name: result['NAME'],
                         email: result['EMAIL']
                     };
@@ -89,6 +89,52 @@ class UserDAO {
 
     }
     // .save
+
+    static edit(user) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+               CALL SP_EDITUSERS(?, ?, ?)
+
+            `, [
+                user.id,
+                user.name,
+                user.email
+            ], (error, results) => {
+
+                (error)? rej(error): res(true);
+
+            });
+
+        });
+
+    }
+    // .edit
+
+    static delete(id) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                CALL SP_DELETEUSERS(?)
+
+            `, [
+                id
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                res(results);
+
+            });
+
+        });
+
+    }
+    // .delete
 
 }
 // .UserDAO

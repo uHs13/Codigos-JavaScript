@@ -102,7 +102,7 @@ class Grid {
 
             btn.addEventListener('click', event => {
 
-                this.triggerEvent('afterUpdateClick', [event]);
+                this.triggerEvent('beforeUpdateClick', [event]);
 
                 let trData = ElFunctions.getEventTrDataSetJson(event);
 
@@ -112,7 +112,7 @@ class Grid {
 
                 }
 
-                this.triggerEvent('beforeUpdateClick', [event]);
+                this.triggerEvent('afterUpdateClick', [event]);
 
             });
 
