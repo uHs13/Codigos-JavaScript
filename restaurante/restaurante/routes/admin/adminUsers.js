@@ -3,9 +3,10 @@ var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
 let urlParams = require('./../../inc/urlParams/urlParams');
-const UsersDAO = require('./../../inc/dao/UserDAO');
+const UsersDAO = require('../../inc/dao/UsersDAO');
 let formDataAssign = require('./../../inc/formDataAssign/formDataAssign');
 let formidable = require('./../../inc/formidable/formidable');
+const ValidateUserPassword = require('./../../inc/validations/ValidateUserPassword');
 
 router.use(adminAuth);
 
@@ -75,6 +76,54 @@ router.delete('/:id', (req, res, next) => {
 
         res.send({
             error
+        });
+
+    });
+
+});
+
+router.post('/update-password', (req, res, next) => {
+
+    let validation = new  ValidateUserPassword(formDataAssign.assign(req));
+
+    validation.validate(formDataAssign.assign(req)).then(userPasswords => {
+
+        validation.comparePasswords(userPasswords).then(userPasswords2 => {
+
+            UsersDAO.updatePassword(
+                userPasswords2
+            ).then(results => {
+
+                res.send({
+                    response: 'Senha atualizada com sucesso!'
+                });
+
+            }).catch(error => {
+        
+                res.send({
+                    response: error
+                });
+        
+            });
+
+        }, reject => {
+
+            res.send({
+                response: reject
+            });
+
+        });
+
+    }, reject => {
+
+        res.send({
+            response: reject
+        });
+
+    }).catch(error => {
+
+        res.send({
+            response: error
         });
 
     });

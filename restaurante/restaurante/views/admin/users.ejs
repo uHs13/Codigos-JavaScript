@@ -40,8 +40,8 @@
               <td><%= usersData[key].name %></td>
               <td><%= usersData[key].email %></td>
               <td>
-                <button type="button" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Editar</button>&nbsp;
-                <button type="button" class="btn btn-xs btn-warning btn-update">
+                <button type="button" class="btn btn-xs btn-info btn-update"><i class="fa fa-pencil"></i> Editar</button>&nbsp;
+                <button type="button" class="btn btn-xs btn-warning">
                   <i class="fa fa-lock"></i> Alterar Senha</button>&nbsp;
                 <button type="button" class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i>
                   Excluir</button></td>
@@ -61,7 +61,7 @@
 <div class="modal fade" id="modal-update-password">
   <div class="modal-dialog">
     <div class="modal-content" style="border-top: 3px solid #f39c12;">
-      <form method="post">
+      <form method="post" action='/admin/users/update-password' id='form-update-password'>
         <input type="hidden" name="id">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -167,7 +167,6 @@
   new Grid({
     deleteUrl: '/admin/users/${trData.id}',
     deleteMsg: 'delete ${trData.name} ?',
-    btnUpdate: '.btn-info',
     onUpdateLoad: (formUpdate, fieldName, data) => {
 
       let input = formUpdate.querySelector(`[name = ${fieldName}]`);
@@ -182,7 +181,28 @@
 
       }
 
+    },
+    listeners: {
+      buttonClick: (button, trData, event) => {
+
+        document.querySelector('#form-update-password [name=id]').value = trData.id;
+
+        $('#modal-update-password').modal('show');
+
+      }
     }
+  });
+
+  document.querySelector('#form-update-password').send().then(results => {
+
+    console.log(results);
+    alert(results.response);
+    window.location.reload();
+
+  }).catch(error => {
+
+    alert(error);
+
   });
 
 </script>

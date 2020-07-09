@@ -43,11 +43,13 @@ class Grid {
             {
                 formCreate: '#form-create',
                 formUpdate: '#form-update',
-                btnUpdate: '.btn-update',
-                btnDelete: '.btn-delete',
+                btnUpdate: 'btn-update',
+                btnDelete: 'btn-delete',
             },
             configurationJson,
         );
+
+        this.rows = [...ElFunctions.selectorAll('table tbody tr')];
 
         this.initForms();
 
@@ -98,49 +100,34 @@ class Grid {
 
     initButtons() {
 
-        ElFunctions.forEachSelector(this.options.btnUpdate, btn => {
+        this.rows.forEach(row => {
 
-            btn.addEventListener('click', event => {
+            [...row.querySelectorAll('.btn')].forEach(btn => {
 
-                this.triggerEvent('beforeUpdateClick', [event]);
+                btn.addEventListener('click', event => {
 
-                let trData = ElFunctions.getEventTrDataSetJson(event);
+                    if (event.target.classList.contains(this.options.btnUpdate)) {
 
-                for (let fieldName in trData) {
+                        this.btnUpdateClick(event);
 
-                    this.options.onUpdateLoad(this.formUpdate, fieldName, trData);
+                    } else if (event.target.classList.contains(this.options.btnDelete)) {
 
-                }
+                        this.btnDeleteClick(event);
 
-                this.triggerEvent('afterUpdateClick', [event]);
+                    } else {
 
-            });
+                        this.triggerEvent(
+                            'buttonClick',
+                            [
+                                event.target,
+                                ElFunctions.getEventTrDataSetJson(event),
+                                event
+                            ]
+                        );
 
-        });
+                    }
 
-        ElFunctions.forEachSelector(this.options.btnDelete, btn => {
-
-            this.triggerEvent('beforeDeleteClick');
-
-            btn.addEventListener('click', event => {
-
-                let trData = ElFunctions.getEventTrDataSetJson(event);
-
-                if (confirm(eval('`' + this.options.deleteMsg + '`'))) {
-
-                    fetch(eval('`' + this.options.deleteUrl + '`'), {
-                        method: 'DELETE'
-                    }).then(response => {
-
-                        response.json().then(() => {
-
-                            this.triggerEvent('afterDeleteClick');
-
-                        });
-
-                    });
-
-                }
+                });
 
             });
 
@@ -148,6 +135,46 @@ class Grid {
 
     }
     // .initButtons
+
+    btnUpdateClick(event) {
+
+        this.triggerEvent('beforeUpdateClick', [event]);
+
+        let trData = ElFunctions.getEventTrDataSetJson(event);
+
+        for (let fieldName in trData) {
+
+            this.options.onUpdateLoad(this.formUpdate, fieldName, trData);
+
+        }
+
+        this.triggerEvent('afterUpdateClick', [event]);
+
+    }
+    // .btnUpdateClick
+
+    btnDeleteClick(event) {
+
+        let trData = ElFunctions.getEventTrDataSetJson(event);
+
+        if (confirm(eval('`' + this.options.deleteMsg + '`'))) {
+
+            fetch(eval('`' + this.options.deleteUrl + '`'), {
+                method: 'DELETE'
+            }).then(response => {
+
+                response.json().then(() => {
+
+                    this.triggerEvent('afterDeleteClick');
+
+                });
+
+            });
+
+        }
+
+    }
+    // .btnDeleteClick
 
 }
 // .Grid

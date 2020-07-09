@@ -1,4 +1,4 @@
-let sql = require('./../db/db');
+let sql = require('../db/db');
 
 class UserDAO {
 
@@ -135,6 +135,30 @@ class UserDAO {
 
     }
     // .delete
+
+    static updatePassword(user) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                CALL SP_UPDATEPASSWORDUSERS(?, ?)
+
+            `, [
+                user.id,
+                user.password
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                res(results);
+
+            });
+
+        });
+
+    }
+    // .updatePassword
 
 }
 // .UserDAO
