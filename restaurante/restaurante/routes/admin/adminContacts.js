@@ -3,6 +3,7 @@ var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
 let urlParams = require('./../../inc/urlParams/urlParams');
+let ContactsDAO = require('./../../inc/dao/ContactsDAO');
 
 router.use(adminAuth);
 
@@ -10,18 +11,35 @@ router.use(adminMenu);
 
 router.get('/', (req, res, next) => {
 
-    urlParams.getParams(req).then(params => {
+    ContactsDAO.getAll().then(contacts => {
 
-        res.render('admin/contacts', params);
+        urlParams.getParams(req, {contacts}).then(params => {
+
+            res.render('admin/contacts', params);
+
+        });
 
     });
 
 });
 
-router.post('/', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
 
-    res.send(req.body);
+    ContactsDAO.delete(
+        req.params.id
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
 
 });
+
 
 module.exports = router;

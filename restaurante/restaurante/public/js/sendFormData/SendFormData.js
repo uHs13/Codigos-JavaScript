@@ -1,29 +1,33 @@
-HTMLFormElement.prototype.send = function () {
+HTMLFormElement.prototype.send = function (functions) {
 
     let form = this;
 
-    return new Promise((res, rej) => {
+    form.addEventListener('submit', event => {
 
-        form.addEventListener('submit', event => {
+        event.preventDefault();
 
-            event.preventDefault();
+        let formData = new FormData(form);
 
-            let formData = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        }).then(response => {
 
-            fetch(form.action, {
-                method: form.method,
-                body: formData
-            }).then(response => {
+            response.json().then(json => {
 
-                response.json().then(json => {
+                if (typeof functions.success === 'function') {
 
-                    res(json);
+                    functions.success(json);
 
-                }).catch(error => {
+                }
 
-                    rej(error);
+            }).catch(error => {
 
-                });
+                if (typeof functions.fail === 'function') {
+
+                    functions.fail(error);
+
+                }
 
             });
 

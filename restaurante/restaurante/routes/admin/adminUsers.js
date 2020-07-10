@@ -17,8 +17,8 @@ router.use(formidable);
 router.get('/', (req, res, next) => {
 
     UsersDAO.getAll(req.session.user).then(usersData => {
-  
-        urlParams.getParams(req , {usersData}).then(params => {
+
+        urlParams.getParams(req, { usersData }).then(params => {
 
             res.render('admin/users', params);
 
@@ -84,7 +84,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.post('/update-password', (req, res, next) => {
 
-    let validation = new  ValidateUserPassword(formDataAssign.assign(req));
+    let validation = new ValidateUserPassword(formDataAssign.assign(req));
 
     validation.validate(formDataAssign.assign(req)).then(userPasswords => {
 
@@ -99,11 +99,11 @@ router.post('/update-password', (req, res, next) => {
                 });
 
             }).catch(error => {
-        
+
                 res.send({
                     response: error
                 });
-        
+
             });
 
         }, reject => {
