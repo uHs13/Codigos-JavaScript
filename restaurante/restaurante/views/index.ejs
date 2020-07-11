@@ -1,181 +1,190 @@
 <%- include('includes/header') -%>
-		<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(images/img_bg_1.jpg)"
-		 data-stellar-background-ratio="0.5">
-			<div class="overlay"></div>
-			<div class="gtco-container">
-				<div class="row">
-					<div class="col-md-12 col-md-offset-0 text-left">
+<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
+	style="background-image: url(images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="gtco-container">
+		<div class="row">
+			<div class="col-md-12 col-md-offset-0 text-left">
 
-						<div class="row row-mt-15em">
-							<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
-								<span class="intro-text-small">Feito por
-									<a href="https://www.hcode.com.br" target="_blank">Hcode.com.br</a>
-								</span>
-								<h1 class="cursive-font">Restaurante Saboroso!</h1>
-							</div>
-							<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
-								<div class="form-wrap">
-									<div class="tab">
+				<div class="row row-mt-15em">
+					<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+						<span class="intro-text-small">Feito por
+							<a href="https://www.hcode.com.br" target="_blank">Hcode.com.br</a>
+						</span>
+						<h1 class="cursive-font">Restaurante Saboroso!</h1>
+					</div>
+					<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+						<div class="form-wrap">
+							<div class="tab">
 
-										<div class="tab-content">
-											<div class="tab-content-inner active" data-content="signup">
-												<h3 class="cursive-font">Reserva de mesa</h3>
-												<form action="/reservations" method='POST'>
-													<div class="row form-group">
-														<div class="col-md-12">
-															<label for="inputName">Nome</label>
-															<input type="text" id="inputName" name="name" class="form-control">
-														</div>
-													</div>
-													<div class="row form-group">
-														<div class="col-md-12">
-															<label for="inputEmail">E-mail</label>
-															<input type="email" id="inputEmail" name="email" class="form-control">
-														</div>
-													</div>
-													<div class="row form-group">
-														<div class="col-md-12">
-															<label for="inputPeople">Pessoas</label>
-															<select id="inputPeople" name="people" class="form-control">
-																<option value=""> -- selecione -- </option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
-																<option value="4">4</option>
-																<option value="5">5+</option>
-															</select>
-														</div>
-													</div>
-													<div class="row form-group">
-														<div class="col-md-12">
-															<label for="inputDate">Data</label>
-															<input type="text" id="inputDate" name="date" class="form-control">
-														</div>
-													</div>
-													<div class="row form-group">
-														<div class="col-md-12">
-															<label for="inputTime">Hora</label>
-															<input type="text" id="inputTime" name="time" class="form-control">
-														</div>
-													</div>
-
-													<div class="row form-group">
-														<div class="col-md-12">
-															<input type="submit" class="btn btn-primary btn-block" value="Reservar Agora">
-														</div>
-													</div>
-												</form>
+								<div class="tab-content">
+									<div class="tab-content-inner active" data-content="signup">
+										<h3 class="cursive-font">Reserva de mesa</h3>
+										<form action="/reservations" method='POST'>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<label for="inputName">Nome</label>
+													<input type="text" id="inputName" name="name" class="form-control">
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<label for="inputEmail">E-mail</label>
+													<input type="email" id="inputEmail" name="email"
+														class="form-control">
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<label for="inputPeople">Pessoas</label>
+													<select id="inputPeople" name="people" class="form-control">
+														<option value=""> -- selecione -- </option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5+</option>
+													</select>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<label for="inputDate">Data</label>
+													<input type="text" id="inputDate" name="date" class="form-control">
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<label for="inputTime">Hora</label>
+													<input type="text" id="inputTime" name="time" class="form-control">
+												</div>
 											</div>
 
-
-										</div>
+											<div class="row form-group">
+												<div class="col-md-12">
+													<input type="submit" class="btn btn-primary btn-block"
+														value="Reservar Agora">
+												</div>
+											</div>
+										</form>
 									</div>
+
+
 								</div>
 							</div>
 						</div>
-
 					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</header>
+
+<%- include('./includes/meals') -%>
+
+<div id="gtco-features">
+	<div class="gtco-container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+				<h2 class="cursive-font">Nossos Serviços</h2>
+				<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="feature-center animate-box" data-animate-effect="fadeIn">
+					<span class="icon">
+						<i class="ti-face-smile"></i>
+					</span>
+					<h3>Pessoas Felizes</h3>
+					<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
 				</div>
 			</div>
-		</header>
-
-		<%- include('includes/meals') -%>
-
-		<div id="gtco-features">
-			<div class="gtco-container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-						<h2 class="cursive-font">Nossos Serviços</h2>
-						<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
-					</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="feature-center animate-box" data-animate-effect="fadeIn">
+					<span class="icon">
+						<i class="ti-thought"></i>
+					</span>
+					<h3>Culinária Criativa</h3>
+					<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
 				</div>
-				<div class="row">
-					<div class="col-md-4 col-sm-6">
-						<div class="feature-center animate-box" data-animate-effect="fadeIn">
-							<span class="icon">
-								<i class="ti-face-smile"></i>
-							</span>
-							<h3>Pessoas Felizes</h3>
-							<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="feature-center animate-box" data-animate-effect="fadeIn">
-							<span class="icon">
-								<i class="ti-thought"></i>
-							</span>
-							<h3>Culinária Criativa</h3>
-							<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="feature-center animate-box" data-animate-effect="fadeIn">
-							<span class="icon">
-								<i class="ti-truck"></i>
-							</span>
-							<h3>Delivery</h3>
-							<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
-						</div>
-					</div>
-
-
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="feature-center animate-box" data-animate-effect="fadeIn">
+					<span class="icon">
+						<i class="ti-truck"></i>
+					</span>
+					<h3>Delivery</h3>
+					<p>Mussum Ipsum, cacilds vidis litro abertis. Si num tem leite então bota uma pinga aí cumpadi!</p>
 				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<div class="gtco-cover gtco-cover-sm" style="background-image: url(images/img_bg_1.jpg)"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="gtco-container text-center">
+		<div class="display-t">
+			<div class="display-tc">
+				<h1>&ldquo; Delegadis gente finis, bibendum egestas augue arcu ut est. Cevadis im ampola pa arma uma
+					pindureta!&rdquo;</h1>
+				<p>&mdash; Mussum, Humorista.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="gtco-counter" class="gtco-section">
+	<div class="gtco-container">
+
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+				<h2 class="cursive-font primary-color">Fatos</h2>
+				<p>Delegadis gente finis, bibendum egestas augue arcu ut est. Cevadis im ampola pa arma uma pindureta!
+				</p>
 			</div>
 		</div>
 
+		<div class="row">
 
-		<div class="gtco-cover gtco-cover-sm" style="background-image: url(images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
-			<div class="overlay"></div>
-			<div class="gtco-container text-center">
-				<div class="display-t">
-					<div class="display-tc">
-						<h1>&ldquo; Delegadis gente finis, bibendum egestas augue arcu ut est. Cevadis im ampola pa arma uma pindureta!&rdquo;</h1>
-						<p>&mdash; Mussum, Humorista.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div id="gtco-counter" class="gtco-section">
-			<div class="gtco-container">
-
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-						<h2 class="cursive-font primary-color">Fatos</h2>
-						<p>Delegadis gente finis, bibendum egestas augue arcu ut est. Cevadis im ampola pa arma uma pindureta!</p>
-					</div>
-				</div>
-
-				<div class="row">
-
-					<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
-						<div class="feature-center">
-							<span class="counter js-counter" data-from="0" data-to="5" data-speed="5000" data-refresh-interval="50">1</span>
-							<span class="counter-label">Avaliação Média</span>
-
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
-						<div class="feature-center">
-							<span class="counter js-counter" data-from="0" data-to="43" data-speed="5000" data-refresh-interval="50">1</span>
-							<span class="counter-label">Opções de Pratos</span>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
-						<div class="feature-center">
-							<span class="counter js-counter" data-from="0" data-to="32" data-speed="5000" data-refresh-interval="50">1</span>
-							<span class="counter-label">Chefes de Cozinha</span>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
-						<div class="feature-center">
-							<span class="counter js-counter" data-from="0" data-to="1985" data-speed="5000" data-refresh-interval="50">1</span>
-							<span class="counter-label">Desde</span>
-
-						</div>
-					</div>
+			<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
+				<div class="feature-center">
+					<span class="counter js-counter" data-from="0" data-to="5" data-speed="5000"
+						data-refresh-interval="50">1</span>
+					<span class="counter-label">Avaliação Média</span>
 
 				</div>
 			</div>
+			<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
+				<div class="feature-center">
+					<span class="counter js-counter" data-from="0" data-to="43" data-speed="5000"
+						data-refresh-interval="50">1</span>
+					<span class="counter-label">Opções de Pratos</span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
+				<div class="feature-center">
+					<span class="counter js-counter" data-from="0" data-to="32" data-speed="5000"
+						data-refresh-interval="50">1</span>
+					<span class="counter-label">Chefes de Cozinha</span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
+				<div class="feature-center">
+					<span class="counter js-counter" data-from="0" data-to="1985" data-speed="5000"
+						data-refresh-interval="50">1</span>
+					<span class="counter-label">Desde</span>
+
+				</div>
+			</div>
+
 		</div>
+	</div>
+</div>
+
 <%- include('includes/footer') -%>

@@ -3,6 +3,7 @@ var router = express.Router();
 let adminAuth = require('./../../inc/adminAuth/adminAuth');
 let adminMenu = require('./../../inc/adminMenu/adminMenu');
 let urlParams = require('./../../inc/urlParams/urlParams');
+let EmailsDAO = require('./../../inc/dao/EmailsDAO');
 
 router.use(adminAuth);
 
@@ -10,17 +11,33 @@ router.use(adminMenu);
 
 router.get('/', (req, res, next) => {
 
-    urlParams.getParams(req).then(params => {
+    EmailsDAO.getAll().then(emails => {
 
-        res.render('admin/emails', params);
+        urlParams.getParams(req, {emails}).then(params => {
+
+            res.render('admin/emails', params);
+
+        });
 
     });
 
 });
 
-router.post('/', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
 
-    res.send(req.body);
+    EmailsDAO.delete(
+        req.params.id
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
 
 });
 

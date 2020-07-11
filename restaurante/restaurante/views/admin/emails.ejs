@@ -30,11 +30,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>contato@hcode.com.br</td>
+                                <% Object.keys(emails).forEach(key => { %>
+                                <tr data-row=<%=JSON.stringify(emails[key])%>>
+                                    <td><%= eval(key) + 1 %></td>
+                                    <td><%= emails[key].email %></td>
                                     <td><button type="button" class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i> Excluir</button></td>
                                 </tr>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
@@ -48,4 +50,17 @@
         <script>
             document.querySelector('#emails').classList.add('active');
         </script>
+
+<script src="/js/sendFormData/SendFormData.js"></script>
+<script src="/js/elFunctions/ElFunctions.js"></script>
+<script src="/js/grid/Grid.js"></script>
+
+<script>
+
+  new Grid({
+    deleteUrl: '/admin/emails/${trData.id}',
+    deleteMsg: 'delete ${trData.email} ?'
+  });
+
+</script>
 <%- include('./../includesadmin/footer.ejs') -%>
