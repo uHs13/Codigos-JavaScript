@@ -1,5 +1,6 @@
 let sql = require('./../db/db');
 const MyDate = require('./../mydate/MyDate');
+const Pagination = require('../pagination/Pagination');
 
 class ReservationsDAO {
 
@@ -25,7 +26,7 @@ class ReservationsDAO {
                 reservation.time
             ], (error, results) => {
 
-                (error)? rej(error): res(true);
+                (error) ? rej(error) : res(true);
 
             });
 
@@ -34,21 +35,19 @@ class ReservationsDAO {
     }
     // .save
 
-    static getAll() {
+    static getAll(page = 1) {
 
         return new Promise((res, rej) => {
 
-            sql.query(`
+            let pagination = new Pagination(`
+                CALL SP_GETRESERVATIONS(?, ?)
+            `);
 
-               CALL SP_GETRESERVATIONS
+            return pagination.getPage(page).then(results => {
 
-            `, (error, results) => {
+                let data = {};
 
-                if (error) rej(error);
-
-                let response = {};
-
-                results[0].forEach((result, index) => {
+                results.forEach((result, index) => {
 
                     let reservations = {
                         id: result['ID'],
@@ -59,11 +58,11 @@ class ReservationsDAO {
                         time: result['TIME'],
                     };
 
-                    response[index] = reservations;
+                    data[index] = reservations;
 
                 });
 
-                res(response);
+                res(data);
 
             });
 
@@ -93,7 +92,7 @@ class ReservationsDAO {
                 reservation.time
             ], (error, results) => {
 
-                (error)? rej(error): res(true);
+                (error) ? rej(error) : res(true);
 
             });
 

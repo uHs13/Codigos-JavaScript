@@ -16,7 +16,7 @@ router.use(formidable);
 
 router.get('/', (req, res, next) => {
 
-    ReservationsDAO.getAll().then(reservationsData => {
+    ReservationsDAO.getAll(1).then(reservationsData => {
 
         urlParams.getParams(req, {reservationsData, date :{}, moment}).then(params => {
 
