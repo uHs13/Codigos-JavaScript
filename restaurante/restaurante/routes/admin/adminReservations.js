@@ -16,9 +16,19 @@ router.use(formidable);
 
 router.get('/', (req, res, next) => {
 
-    ReservationsDAO.getAll(1).then(reservationsData => {
+    ReservationsDAO.getAll(req).then(pagination => {
 
-        urlParams.getParams(req, {reservationsData, date :{}, moment}).then(params => {
+        urlParams.getParams(
+            req,
+            {
+                reservationsData: pagination.data,
+                date :{
+                    start: req.query.start,
+                    end: req.query.end
+                },
+                moment,
+                links: pagination.links
+            }).then(params => {
 
             res.render('admin/reservations', params);
 

@@ -35,15 +35,19 @@ class ReservationsDAO {
     }
     // .save
 
-    static getAll(page = 1) {
+    static getAll(req) {
 
         return new Promise((res, rej) => {
 
+            let page = (req.query.page) ? req.query.page :  1;
+            let dateStart = (req.query.start) ? req.query.start : '';
+            let dateEnd = (req.query.end) ? req.query.end :  '';
+
             let pagination = new Pagination(`
-                CALL SP_GETRESERVATIONS(?, ?)
+                CALL SP_GETRESERVATIONS(?, ?, ?, ?)
             `);
 
-            return pagination.getPage(page).then(results => {
+            pagination.getPage(page, dateStart, dateEnd).then(results => {
 
                 let data = {};
 
@@ -62,7 +66,10 @@ class ReservationsDAO {
 
                 });
 
-                res(data);
+                res({
+                    data,
+                    links: pagination.getPagination(req.query)
+                });
 
             });
 
