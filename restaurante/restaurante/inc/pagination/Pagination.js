@@ -106,6 +106,23 @@ class Pagination {
 
         }
 
+        if (this.getCurrentPage() > 1) {
+
+            links.push({
+
+                text: '<<',
+                href: `?${this.getQueryString(
+                    Object.assign(
+                        {},
+                        params,
+                        {page: this.getCurrentPage() - 1}
+                    )
+                )}`
+
+            });
+
+        }
+
         for (let i = nrStart; i <= nrEnd; i++) {
 
             links.push({
@@ -119,6 +136,27 @@ class Pagination {
                     )
                 )}`,
                 active: (i === this.getCurrentPage())
+
+            });
+
+        }
+
+        if (
+            this.getTotalPages() > 1
+            &&
+            this.getCurrentPage() < this.getTotalPages()
+        ) {
+
+            links.push({
+
+                text: '>>',
+                href: `?${this.getQueryString(
+                    Object.assign(
+                        {},
+                        params,
+                        {page: this.getCurrentPage() + 1}
+                    )
+                )}`
 
             });
 
