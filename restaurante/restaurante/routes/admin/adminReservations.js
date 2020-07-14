@@ -92,4 +92,22 @@ router.delete('/:id', (req, res, next) => {
 
 });
 
+router.get('/chart', (req, res, next) => {
+
+    ReservationsDAO.delete(
+        req.params.id
+    ).then(results => {
+
+        res.send(results);
+
+    }).catch(error => {
+
+        res.send({
+            error
+        });
+
+    });
+
+});
+
 module.exports = router;

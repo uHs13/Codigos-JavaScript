@@ -1,6 +1,7 @@
 let sql = require('./../db/db');
 const MyDate = require('./../mydate/MyDate');
 const Pagination = require('../pagination/Pagination');
+let moment = require('moment');
 
 class ReservationsDAO {
 
@@ -39,9 +40,9 @@ class ReservationsDAO {
 
         return new Promise((res, rej) => {
 
-            let page = (req.query.page) ? req.query.page :  1;
+            let page = (req.query.page) ? req.query.page : 1;
             let dateStart = (req.query.start) ? req.query.start : '';
-            let dateEnd = (req.query.end) ? req.query.end :  '';
+            let dateEnd = (req.query.end) ? req.query.end : '';
 
             let pagination = new Pagination(`
                 CALL SP_GETRESERVATIONS(?, ?, ?, ?)
@@ -130,6 +131,51 @@ class ReservationsDAO {
 
     }
     // .delete
+
+    static chart(req) {
+
+        return new Promise((res, rej) => {
+
+            sql.query(`
+
+                SELECT
+                CONCAT(YEAR(DATE), '-', MONTH(DATE)) AS date,
+                COUNT(ID) AS total,
+                SUM(PEOPLE) / COUNT(ID) AS avg_people
+                FROM TB_RESERVATIONS
+                WHERE
+                DATE BETWEEN ? AND ?
+                GROUP BY YEAR(DATE), MONTH(DATE)
+                ORDER BY YEAR(DATE) DESC, MONTH(DATE) DESC
+
+            `, [
+                req.query.start,
+                req.query.end
+            ], (error, results) => {
+
+                if (error) rej(error);
+
+                let months = [];
+                let values = [];
+
+                results.forEach(result => {
+
+                    months.push(moment(result.date).format('MMM YYYY'));
+                    values.push(result.total);
+
+                });
+
+                res({
+                    months,
+                    values
+                });
+
+            });
+
+        });
+
+    }
+    // .chart
 
 }
 // .ReservationsDAO
