@@ -87,7 +87,7 @@
       <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
           <% links.forEach(link => { %>
-          <li <% if (link.active) { %>class="active"<% } %>><a href="<%= link.href %>"><%= link.text %></a></li>
+          <li <% if (link.active) { %>class="active" <% } %>><a href="<%= link.href %>"><%= link.text %></a></li>
           <% }); %>
         </ul>
       </div>
@@ -238,45 +238,53 @@
     }
   });
 
-  let chart = new Chart(
-    document.querySelector('#chart').getContext('2d'),
-    {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-          data: [3, 5, 8, 14, 22, 25],
-          label: 'Reservas',
-          backgroundColor: 'rgba(54, 162, 235, .5)',
-          borderColor: 'rgba(54, 162, 235, .7)',
-          fill:true,
-          pointBackgroundColor: 'rgba(54, 162, 235, 1)'
-        }]
-      },
-      options: {
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
-        scales: {
-          xAxes:[{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Mês'
+  fetch(`/admin/reservations/chart${window.location.search}`).then(response => {
+
+    response.json().then(chartData => {
+
+      let chart = new Chart(
+        document.querySelector('#chart').getContext('2d'),
+        {
+          type: 'line',
+          data: {
+            labels: chartData.months,
+            datasets: [{
+              data: chartData.values,
+              label: 'Reservas',
+              backgroundColor: 'rgba(54, 162, 235, .5)',
+              borderColor: 'rgba(54, 162, 235, .7)',
+              fill: true,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+            }]
+          },
+          options: {
+            tooltips: {
+              mode: 'index',
+              intersect: false
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Mês'
+                }
+              }],
+              yAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Reservas'
+                }
+              }]
             }
-          }],
-          yAxes:[{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Reservas'
-            }
-          }]
+          }
         }
-      }
-    }
-  );
+      );
+
+    });
+
+  });
 
 </script>
 

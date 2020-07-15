@@ -94,9 +94,15 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/chart', (req, res, next) => {
 
-    ReservationsDAO.delete(
-        req.params.id
-    ).then(results => {
+    req.query.start = (req.query.start)
+    ? req.query.start
+    : moment().subtract(4, 'year').format('YYYY-MM-DD');
+
+    req.query.end = (req.query.end)
+    ? req.query.end
+    : moment().format('YYYY-MM-DD');
+
+    ReservationsDAO.getChart(req).then(results => {
 
         res.send(results);
 

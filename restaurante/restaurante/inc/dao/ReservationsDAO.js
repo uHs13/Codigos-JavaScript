@@ -132,21 +132,21 @@ class ReservationsDAO {
     }
     // .delete
 
-    static chart(req) {
+    static getChart(req) {
 
         return new Promise((res, rej) => {
 
             sql.query(`
 
                 SELECT
-                CONCAT(YEAR(DATE), '-', MONTH(DATE)) AS date,
+                CONCAT(YEAR(DATE), '-', LPAD(MONTH(DATE), 2, '0')) AS date,
                 COUNT(ID) AS total,
                 SUM(PEOPLE) / COUNT(ID) AS avg_people
                 FROM TB_RESERVATIONS
                 WHERE
                 DATE BETWEEN ? AND ?
                 GROUP BY YEAR(DATE), MONTH(DATE)
-                ORDER BY YEAR(DATE) DESC, MONTH(DATE) DESC
+                ORDER BY YEAR(DATE) ASC, MONTH(DATE) ASC
 
             `, [
                 req.query.start,

@@ -20,8 +20,19 @@ let adminReservationsRouter = require('./routes/admin/adminReservations');
 let adminUsersRouter = require('./routes/admin/adminUsers');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
+let http = require('http');
+let socketio = require('socket.io');
 
 var app = express();
+
+http = http.Server(app);
+let io = socketio(http);
+
+io.on('connection', (socket) => {
+
+  console.log('a new user is connected');
+
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,8 +49,8 @@ app.use(session({
 }));
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -74,4 +85,10 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+http.listen(3000, () => {
+
+  console.log('Server working');
+
+});
+
+//module.exports = app;
