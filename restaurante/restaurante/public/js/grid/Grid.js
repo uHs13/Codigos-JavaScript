@@ -81,9 +81,11 @@ class Grid {
 
             this.formUpdate.send({
                 success: (response) => {
+                    console.log('success', response);
                     this.triggerEvent('afterFormUpdate', [response]);
                 },
                 fail: (response) => {
+                    console.log('fail', response);
                     this.triggerEvent('afterFormCreateError', [response]);
                 }
             });

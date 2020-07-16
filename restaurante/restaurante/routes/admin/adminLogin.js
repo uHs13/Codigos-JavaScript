@@ -20,6 +20,8 @@ router.post('/', (req, res, next) => {
 
         login.login().then(data => {
 
+            console.log(data);
+
             req.session.user = data;
 
             res.redirect('/admin/main');
